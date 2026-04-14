@@ -1,0 +1,258 @@
+version: 2
+
+sources:
+  - name: sources
+    database: combo-493306
+    schema: sources
+    tables:
+      - name: accounts
+        columns:
+          - name: id
+            data_type: INTEGER
+          - name: name
+            data_type: STRING
+          - name: created_at
+            data_type: TIMESTAMP
+          - name: updated_at
+            data_type: TIMESTAMP
+          - name: time_zone
+            data_type: STRING
+          - name: default_language
+            data_type: STRING
+          - name: city
+            data_type: STRING
+          - name: street
+            data_type: STRING
+          - name: zip
+            data_type: STRING
+          - name: collective_agreement_id
+            data_type: INTEGER
+          - name: cheat_sheet_hour_cut
+            data_type: INTEGER
+          - name: social_tax
+            data_type: INTEGER
+          - name: paid_breaks
+            data_type: BOOLEAN
+          - name: show_real_and_planned_hours_on_planning
+            data_type: BOOLEAN
+          - name: preferences
+            data_type: STRING
+          - name: blocked
+            data_type: BOOLEAN
+          - name: payroll_software_id
+            data_type: STRING
+          - name: partner_id
+            data_type: STRING
+          - name: country
+            data_type: STRING
+
+      - name: locations
+        columns:
+          - name: id
+            data_type: INTEGER
+          - name: name
+            data_type: STRING
+          - name: account_id
+            data_type: INTEGER
+          - name: created_at
+            data_type: TIMESTAMP
+          - name: updated_at
+            data_type: TIMESTAMP
+          - name: address
+            data_type: STRING
+          - name: preferences
+            data_type: STRING
+          - name: city
+            data_type: STRING
+          - name: zipcode
+            data_type: STRING
+          - name: collective_agreement_id
+            data_type: INTEGER
+          - name: country
+            data_type: STRING
+          - name: partner_id
+            data_type: STRING
+          - name: archived
+            data_type: STRING
+          - name: default_break_duration
+            data_type: INTEGER
+          - name: payroll_software_identifier
+            data_type: STRING
+          - name: enable_public_holiday_configuration
+            data_type: BOOLEAN
+          - name: public_holiday_overtime_rate
+            data_type: INTEGER
+          - name: public_holiday_paid_by_default
+            data_type: BOOLEAN
+          - name: location_type
+            data_type: STRING
+          - name: minimum_shift_duration_for_automatic_breaks_in_hours
+            data_type: INTEGER
+
+      - name: memberships
+        columns:
+          - name: id
+            data_type: INTEGER
+          - name: user_id
+            data_type: INTEGER
+          - name: account_id
+            data_type: INTEGER
+          - name: active
+            data_type: STRING
+          - name: role
+            data_type: STRING
+          - name: created_at
+            data_type: TIMESTAMP
+          - name: updated_at
+            data_type: TIMESTAMP
+          - name: sort_index
+            data_type: STRING
+          - name: preferences
+            data_type: STRING
+          - name: onboarded
+            data_type: BOOLEAN
+          - name: can_manage_published_planning
+            data_type: BOOLEAN
+          - name: can_invalidate_shift
+            data_type: BOOLEAN
+          - name: can_remove_employee
+            data_type: BOOLEAN
+          - name: can_set_custom_rest_value
+            data_type: BOOLEAN
+          - name: lastname
+            data_type: STRING
+          - name: street_address
+            data_type: STRING
+          - name: enhanced_medical_examination
+            data_type: BOOLEAN
+          - name: firstname
+            data_type: STRING
+
+      - name: rests
+        columns:
+          - name: id
+            data_type: INTEGER
+          - name: user_contract_id
+            data_type: INTEGER
+          - name: timeoff_id
+            data_type: INTEGER
+          - name: original_shift_id
+            data_type: INTEGER
+          - name: rest_type
+            data_type: STRING
+          - name: starts_at
+            data_type: TIMESTAMP
+          - name: ends_at
+            data_type: TIMESTAMP
+          - name: created_at
+            data_type: TIMESTAMP
+          - name: updated_at
+            data_type: TIMESTAMP
+          - name: partner_id
+            data_type: STRING
+          - name: custom_value
+            data_type: STRING
+          - name: account_id
+            data_type: INTEGER
+
+      - name: shifts
+        columns:
+          - name: id
+            data_type: INTEGER
+          - name: user_contract_id
+            data_type: INTEGER
+          - name: weeklyschedule_id
+            data_type: INTEGER
+          - name: label_id
+            data_type: INTEGER
+          - name: breakduration
+            data_type: INTEGER
+          - name: starts_at
+            data_type: TIMESTAMP
+          - name: ends_at
+            data_type: TIMESTAMP
+          - name: real_breakduration
+            data_type: INTEGER
+          - name: real_starts_at
+            data_type: TIMESTAMP
+          - name: real_ends_at
+            data_type: TIMESTAMP
+          - name: did_not_show
+            data_type: STRING
+          - name: validated_at
+            data_type: TIMESTAMP
+          - name: validator_id
+            data_type: INTEGER
+          - name: planned_hours_last_edited_at
+            data_type: TIMESTAMP
+          - name: planned_hours_last_edited_by_id
+            data_type: INTEGER
+          - name: created_at
+            data_type: TIMESTAMP
+          - name: updated_at
+            data_type: TIMESTAMP
+          - name: locked_at
+            data_type: STRING
+          - name: partner_id
+            data_type: STRING
+          - name: account_id
+            data_type: INTEGER
+          - name: planification_type
+            data_type: STRING
+
+      - name: user_contracts
+        columns:
+          - name: id
+            data_type: INTEGER
+          - name: created_at
+            data_type: TIMESTAMP
+          - name: updated_at
+            data_type: TIMESTAMP
+          - name: location_id
+            data_type: INTEGER
+          - name: contract_end
+            data_type: DATE
+          - name: contract_time
+            data_type: STRING
+          - name: contract_start
+            data_type: STRING
+          - name: contract_end_trial
+            data_type: DATE
+          - name: contract_type
+            data_type: STRING
+          - name: lastname
+            data_type: STRING
+          - name: firstname
+            data_type: STRING
+          - name: street_address
+            data_type: STRING
+          - name: do_not_show_in_register
+            data_type: BOOLEAN
+          - name: contract_end_reason
+            data_type: STRING
+          - name: team_id
+            data_type: INTEGER
+          - name: invitation_sent_at
+            data_type: TIMESTAMP
+          - name: invitation_accepted_at
+            data_type: TIMESTAMP
+          - name: membership_id
+            data_type: INTEGER
+          - name: daily_worker
+            data_type: STRING
+          - name: working_days_in_week
+            data_type: INTEGER
+          - name: partner_id
+            data_type: STRING
+          - name: birth_department_code
+            data_type: INTEGER
+          - name: start_time
+            data_type: TIMESTAMP
+          - name: account_id
+            data_type: INTEGER
+          - name: original_contract_id
+            data_type: INTEGER
+          - name: type
+            data_type: STRING
+          - name: virtual
+            data_type: STRING
