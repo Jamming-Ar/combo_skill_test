@@ -422,24 +422,12 @@ models:
         data_type: boolean
         description: ''
 
-      - name: firstname
-        data_type: string
-        description: ''
-
-      - name: id
-        data_type: int64
-        description: ''
-
       - name: invitation_accepted_at
         data_type: timestamp
         description: ''
 
       - name: invitation_sent_at
         data_type: timestamp
-        description: ''
-
-      - name: lastname
-        data_type: string
         description: ''
 
       - name: location_id
@@ -462,20 +450,32 @@ models:
         data_type: timestamp
         description: ''
 
-      - name: street_address
-        data_type: string
-        description: ''
-
       - name: team_id
         data_type: int64
         description: ''
 
-      - name: type
+      - name: updated_at
+        data_type: timestamp
+        description: ''
+
+      - name: user_contract_firstname
         data_type: string
         description: ''
 
-      - name: updated_at
-        data_type: timestamp
+      - name: user_contract_id
+        data_type: int64
+        description: ''
+
+      - name: user_contract_lastname
+        data_type: string
+        description: ''
+
+      - name: user_contract_street_address
+        data_type: string
+        description: ''
+
+      - name: user_contract_type
+        data_type: string
         description: ''
 
       - name: virtual

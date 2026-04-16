@@ -171,13 +171,11 @@ dictionary:
     description: ''
     models:
       - stg_bigquery__memberships
-      - stg_bigquery__user_contracts
 
   - name: id
     description: ''
     models:
       - stg_bigquery__shifts
-      - stg_bigquery__user_contracts
 
   - name: invitation_accepted_at
     description: ''
@@ -208,7 +206,6 @@ dictionary:
     description: ''
     models:
       - stg_bigquery__memberships
-      - stg_bigquery__user_contracts
 
   - name: location_address
     description: ''
@@ -401,7 +398,6 @@ dictionary:
     description: ''
     models:
       - stg_bigquery__memberships
-      - stg_bigquery__user_contracts
 
   - name: team_id
     description: ''
@@ -418,11 +414,6 @@ dictionary:
     models:
       - stg_bigquery__rests
 
-  - name: type
-    description: ''
-    models:
-      - stg_bigquery__user_contracts
-
   - name: updated_at
     description: ''
     models:
@@ -433,11 +424,32 @@ dictionary:
       - stg_bigquery__shifts
       - stg_bigquery__user_contracts
 
+  - name: user_contract_firstname
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
+
   - name: user_contract_id
     description: ''
     models:
       - stg_bigquery__rests
       - stg_bigquery__shifts
+      - stg_bigquery__user_contracts
+
+  - name: user_contract_lastname
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
+
+  - name: user_contract_street_address
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
+
+  - name: user_contract_type
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
 
   - name: user_id
     description: ''

@@ -2,7 +2,7 @@ with
 
 renamed as (
     select
-        id,
+        id as user_contract_id,
         created_at,
         updated_at,
         location_id,
@@ -11,9 +11,9 @@ renamed as (
         contract_start,
         contract_end_trial,
         contract_type,
-        lastname,
-        firstname,
-        street_address,
+        lastname as user_contract_lastname,
+        firstname as user_contract_firstname,
+        street_address as user_contract_street_address,
         do_not_show_in_register,
         contract_end_reason,
         team_id,
@@ -27,13 +27,13 @@ renamed as (
         start_time,
         account_id,
         original_contract_id,
-        type,
+        type as user_contract_type,
         virtual
     from {{ source('sources', 'user_contracts') }}
-),
+)
 
 select
-    id,
+    user_contract_id,
     created_at,
     updated_at,
     location_id,
@@ -42,9 +42,9 @@ select
     contract_start,
     contract_end_trial,
     contract_type,
-    lastname,
-    firstname,
-    street_address,
+    user_contract_lastname,
+    user_contract_firstname,
+    user_contract_street_address,
     do_not_show_in_register,
     contract_end_reason,
     team_id,
@@ -58,6 +58,6 @@ select
     start_time,
     account_id,
     original_contract_id,
-    type,
+    user_contract_type,
     virtual
 from renamed
