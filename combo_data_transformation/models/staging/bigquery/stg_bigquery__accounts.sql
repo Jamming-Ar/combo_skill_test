@@ -2,46 +2,46 @@ with
 
 renamed as (
     select
-        id,
-        name,
+        id as account_id,
+        name as account_name,
         created_at,
         updated_at,
         time_zone,
-        default_language,
-        city,
+        default_language as account_default_language,
+        city as account_city,
         street,
-        zip,
+        zip as account_zip,
         collective_agreement_id,
         cheat_sheet_hour_cut,
         social_tax,
         paid_breaks,
         show_real_and_planned_hours_on_planning,
-        preferences,
-        blocked,
+        preferences as account_preferences,
+        blocked as is_blocked,
         payroll_software_id,
         partner_id,
-        country
+        country as account_country
     from {{ source('sources', 'accounts') }}
-),
+)
 
 select
-    id,
-    name,
+    account_id,
+    account_name,
     created_at,
     updated_at,
     time_zone,
-    default_language,
-    city,
+    account_default_language,
+    account_city,
     street,
-    zip,
+    account_zip,
     collective_agreement_id,
     cheat_sheet_hour_cut,
     social_tax,
     paid_breaks,
     show_real_and_planned_hours_on_planning,
-    preferences,
-    blocked,
+    account_preferences,
+    is_blocked,
     payroll_software_id,
     partner_id,
-    country
+    account_country
 from renamed

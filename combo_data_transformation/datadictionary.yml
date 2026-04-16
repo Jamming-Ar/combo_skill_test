@@ -1,13 +1,44 @@
 dictionary:
 
+  - name: account_city
+    description: ''
+    models:
+      - stg_bigquery__accounts
+
+  - name: account_country
+    description: ''
+    models:
+      - stg_bigquery__accounts
+
+  - name: account_default_language
+    description: ''
+    models:
+      - stg_bigquery__accounts
+
   - name: account_id
     description: ''
     models:
+      - stg_bigquery__accounts
       - stg_bigquery__locations
       - stg_bigquery__memberships
       - stg_bigquery__rests
       - stg_bigquery__shifts
       - stg_bigquery__user_contracts
+
+  - name: account_name
+    description: ''
+    models:
+      - stg_bigquery__accounts
+
+  - name: account_preferences
+    description: ''
+    models:
+      - stg_bigquery__accounts
+
+  - name: account_zip
+    description: ''
+    models:
+      - stg_bigquery__accounts
 
   - name: address
     description: ''
@@ -23,11 +54,6 @@ dictionary:
     description: ''
     models:
       - stg_bigquery__user_contracts
-
-  - name: blocked
-    description: ''
-    models:
-      - stg_bigquery__accounts
 
   - name: breakduration
     description: ''
@@ -62,7 +88,6 @@ dictionary:
   - name: city
     description: ''
     models:
-      - stg_bigquery__accounts
       - stg_bigquery__locations
 
   - name: collective_agreement_id
@@ -104,7 +129,6 @@ dictionary:
   - name: country
     description: ''
     models:
-      - stg_bigquery__accounts
       - stg_bigquery__locations
 
   - name: created_at
@@ -131,11 +155,6 @@ dictionary:
     description: ''
     models:
       - stg_bigquery__locations
-
-  - name: default_language
-    description: ''
-    models:
-      - stg_bigquery__accounts
 
   - name: did_not_show
     description: ''
@@ -172,7 +191,6 @@ dictionary:
   - name: id
     description: ''
     models:
-      - stg_bigquery__accounts
       - stg_bigquery__locations
       - stg_bigquery__rests
       - stg_bigquery__shifts
@@ -192,6 +210,11 @@ dictionary:
     description: ''
     models:
       - stg_bigquery__memberships
+
+  - name: is_blocked
+    description: ''
+    models:
+      - stg_bigquery__accounts
 
   - name: label_id
     description: ''
@@ -243,7 +266,6 @@ dictionary:
   - name: name
     description: ''
     models:
-      - stg_bigquery__accounts
       - stg_bigquery__locations
 
   - name: onboarded
@@ -303,7 +325,6 @@ dictionary:
   - name: preferences
     description: ''
     models:
-      - stg_bigquery__accounts
       - stg_bigquery__locations
 
   - name: public_holiday_overtime_rate
@@ -438,11 +459,6 @@ dictionary:
     description: ''
     models:
       - stg_bigquery__user_contracts
-
-  - name: zip
-    description: ''
-    models:
-      - stg_bigquery__accounts
 
   - name: zipcode
     description: ''
