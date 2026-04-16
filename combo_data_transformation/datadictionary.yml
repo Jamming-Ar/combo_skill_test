@@ -40,11 +40,6 @@ dictionary:
     models:
       - stg_bigquery__accounts
 
-  - name: address
-    description: ''
-    models:
-      - stg_bigquery__locations
-
   - name: archived
     description: ''
     models:
@@ -85,11 +80,6 @@ dictionary:
     models:
       - stg_bigquery__accounts
 
-  - name: city
-    description: ''
-    models:
-      - stg_bigquery__locations
-
   - name: collective_agreement_id
     description: ''
     models:
@@ -125,11 +115,6 @@ dictionary:
     description: ''
     models:
       - stg_bigquery__user_contracts
-
-  - name: country
-    description: ''
-    models:
-      - stg_bigquery__locations
 
   - name: created_at
     description: ''
@@ -191,7 +176,6 @@ dictionary:
   - name: id
     description: ''
     models:
-      - stg_bigquery__locations
       - stg_bigquery__rests
       - stg_bigquery__shifts
       - stg_bigquery__user_contracts
@@ -227,12 +211,43 @@ dictionary:
       - stg_bigquery__memberships
       - stg_bigquery__user_contracts
 
+  - name: location_address
+    description: ''
+    models:
+      - stg_bigquery__locations
+
+  - name: location_city
+    description: ''
+    models:
+      - stg_bigquery__locations
+
+  - name: location_country
+    description: ''
+    models:
+      - stg_bigquery__locations
+
   - name: location_id
     description: ''
     models:
+      - stg_bigquery__locations
       - stg_bigquery__user_contracts
 
+  - name: location_name
+    description: ''
+    models:
+      - stg_bigquery__locations
+
+  - name: location_preferences
+    description: ''
+    models:
+      - stg_bigquery__locations
+
   - name: location_type
+    description: ''
+    models:
+      - stg_bigquery__locations
+
+  - name: location_zipcode
     description: ''
     models:
       - stg_bigquery__locations
@@ -259,11 +274,6 @@ dictionary:
       - stg_bigquery__memberships
 
   - name: minimum_shift_duration_for_automatic_breaks_in_hours
-    description: ''
-    models:
-      - stg_bigquery__locations
-
-  - name: name
     description: ''
     models:
       - stg_bigquery__locations
@@ -321,11 +331,6 @@ dictionary:
     description: ''
     models:
       - stg_bigquery__shifts
-
-  - name: preferences
-    description: ''
-    models:
-      - stg_bigquery__locations
 
   - name: public_holiday_overtime_rate
     description: ''
@@ -459,8 +464,3 @@ dictionary:
     description: ''
     models:
       - stg_bigquery__user_contracts
-
-  - name: zipcode
-    description: ''
-    models:
-      - stg_bigquery__locations

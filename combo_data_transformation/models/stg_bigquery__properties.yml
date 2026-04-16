@@ -86,24 +86,12 @@ models:
         data_type: int64
         description: ''
 
-      - name: address
-        data_type: string
-        description: ''
-
       - name: archived
-        data_type: string
-        description: ''
-
-      - name: city
         data_type: string
         description: ''
 
       - name: collective_agreement_id
         data_type: int64
-        description: ''
-
-      - name: country
-        data_type: string
         description: ''
 
       - name: created_at
@@ -118,11 +106,35 @@ models:
         data_type: boolean
         description: ''
 
-      - name: id
+      - name: location_address
+        data_type: string
+        description: ''
+
+      - name: location_city
+        data_type: string
+        description: ''
+
+      - name: location_country
+        data_type: string
+        description: ''
+
+      - name: location_id
         data_type: int64
         description: ''
 
+      - name: location_name
+        data_type: string
+        description: ''
+
+      - name: location_preferences
+        data_type: string
+        description: ''
+
       - name: location_type
+        data_type: string
+        description: ''
+
+      - name: location_zipcode
         data_type: string
         description: ''
 
@@ -130,19 +142,11 @@ models:
         data_type: int64
         description: ''
 
-      - name: name
-        data_type: string
-        description: ''
-
       - name: partner_id
         data_type: string
         description: ''
 
       - name: payroll_software_identifier
-        data_type: string
-        description: ''
-
-      - name: preferences
         data_type: string
         description: ''
 
@@ -156,10 +160,6 @@ models:
 
       - name: updated_at
         data_type: timestamp
-        description: ''
-
-      - name: zipcode
-        data_type: string
         description: ''
 
   - name: stg_bigquery__memberships
