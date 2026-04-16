@@ -2,7 +2,7 @@ with
 
 renamed as (
     select
-        id,
+        id as shift_id,
         user_contract_id,
         label_id,
         breakduration,
@@ -26,7 +26,7 @@ renamed as (
 ),
 
 select
-    id,
+    shift_id,
     user_contract_id,
     label_id,
     breakduration,
