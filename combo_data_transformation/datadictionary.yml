@@ -1,0 +1,446 @@
+dictionary:
+
+  - name: account_id
+    description: ''
+    models:
+      - stg_bigquery__locations
+      - stg_bigquery__memberships
+      - stg_bigquery__rests
+      - stg_bigquery__shifts
+      - stg_bigquery__user_contracts
+
+  - name: active
+    description: ''
+    models:
+      - stg_bigquery__memberships
+
+  - name: address
+    description: ''
+    models:
+      - stg_bigquery__locations
+
+  - name: archived
+    description: ''
+    models:
+      - stg_bigquery__locations
+
+  - name: birth_department_code
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
+
+  - name: blocked
+    description: ''
+    models:
+      - stg_bigquery__accounts
+
+  - name: breakduration
+    description: ''
+    models:
+      - stg_bigquery__shifts
+
+  - name: can_invalidate_shift
+    description: ''
+    models:
+      - stg_bigquery__memberships
+
+  - name: can_manage_published_planning
+    description: ''
+    models:
+      - stg_bigquery__memberships
+
+  - name: can_remove_employee
+    description: ''
+    models:
+      - stg_bigquery__memberships
+
+  - name: can_set_custom_rest_value
+    description: ''
+    models:
+      - stg_bigquery__memberships
+
+  - name: cheat_sheet_hour_cut
+    description: ''
+    models:
+      - stg_bigquery__accounts
+
+  - name: city
+    description: ''
+    models:
+      - stg_bigquery__accounts
+      - stg_bigquery__locations
+
+  - name: collective_agreement_id
+    description: ''
+    models:
+      - stg_bigquery__accounts
+      - stg_bigquery__locations
+
+  - name: contract_end
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
+
+  - name: contract_end_reason
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
+
+  - name: contract_end_trial
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
+
+  - name: contract_start
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
+
+  - name: contract_time
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
+
+  - name: contract_type
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
+
+  - name: country
+    description: ''
+    models:
+      - stg_bigquery__accounts
+      - stg_bigquery__locations
+
+  - name: created_at
+    description: ''
+    models:
+      - stg_bigquery__accounts
+      - stg_bigquery__locations
+      - stg_bigquery__memberships
+      - stg_bigquery__rests
+      - stg_bigquery__shifts
+      - stg_bigquery__user_contracts
+
+  - name: custom_value
+    description: ''
+    models:
+      - stg_bigquery__rests
+
+  - name: daily_worker
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
+
+  - name: default_break_duration
+    description: ''
+    models:
+      - stg_bigquery__locations
+
+  - name: default_language
+    description: ''
+    models:
+      - stg_bigquery__accounts
+
+  - name: did_not_show
+    description: ''
+    models:
+      - stg_bigquery__shifts
+
+  - name: do_not_show_in_register
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
+
+  - name: enable_public_holiday_configuration
+    description: ''
+    models:
+      - stg_bigquery__locations
+
+  - name: ends_at
+    description: ''
+    models:
+      - stg_bigquery__rests
+      - stg_bigquery__shifts
+
+  - name: enhanced_medical_examination
+    description: ''
+    models:
+      - stg_bigquery__memberships
+
+  - name: firstname
+    description: ''
+    models:
+      - stg_bigquery__memberships
+      - stg_bigquery__user_contracts
+
+  - name: id
+    description: ''
+    models:
+      - stg_bigquery__accounts
+      - stg_bigquery__locations
+      - stg_bigquery__memberships
+      - stg_bigquery__rests
+      - stg_bigquery__shifts
+      - stg_bigquery__user_contracts
+
+  - name: invitation_accepted_at
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
+
+  - name: invitation_sent_at
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
+
+  - name: label_id
+    description: ''
+    models:
+      - stg_bigquery__shifts
+
+  - name: lastname
+    description: ''
+    models:
+      - stg_bigquery__memberships
+      - stg_bigquery__user_contracts
+
+  - name: location_id
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
+
+  - name: location_type
+    description: ''
+    models:
+      - stg_bigquery__locations
+
+  - name: locked_at
+    description: ''
+    models:
+      - stg_bigquery__shifts
+
+  - name: membership_id
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
+
+  - name: minimum_shift_duration_for_automatic_breaks_in_hours
+    description: ''
+    models:
+      - stg_bigquery__locations
+
+  - name: name
+    description: ''
+    models:
+      - stg_bigquery__accounts
+      - stg_bigquery__locations
+
+  - name: onboarded
+    description: ''
+    models:
+      - stg_bigquery__memberships
+
+  - name: original_contract_id
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
+
+  - name: original_shift_id
+    description: ''
+    models:
+      - stg_bigquery__rests
+
+  - name: paid_breaks
+    description: ''
+    models:
+      - stg_bigquery__accounts
+
+  - name: partner_id
+    description: ''
+    models:
+      - stg_bigquery__accounts
+      - stg_bigquery__locations
+      - stg_bigquery__rests
+      - stg_bigquery__shifts
+      - stg_bigquery__user_contracts
+
+  - name: payroll_software_id
+    description: ''
+    models:
+      - stg_bigquery__accounts
+
+  - name: payroll_software_identifier
+    description: ''
+    models:
+      - stg_bigquery__locations
+
+  - name: planification_type
+    description: ''
+    models:
+      - stg_bigquery__shifts
+
+  - name: planned_hours_last_edited_at
+    description: ''
+    models:
+      - stg_bigquery__shifts
+
+  - name: planned_hours_last_edited_by_id
+    description: ''
+    models:
+      - stg_bigquery__shifts
+
+  - name: preferences
+    description: ''
+    models:
+      - stg_bigquery__accounts
+      - stg_bigquery__locations
+      - stg_bigquery__memberships
+
+  - name: public_holiday_overtime_rate
+    description: ''
+    models:
+      - stg_bigquery__locations
+
+  - name: public_holiday_paid_by_default
+    description: ''
+    models:
+      - stg_bigquery__locations
+
+  - name: real_breakduration
+    description: ''
+    models:
+      - stg_bigquery__shifts
+
+  - name: real_ends_at
+    description: ''
+    models:
+      - stg_bigquery__shifts
+
+  - name: real_starts_at
+    description: ''
+    models:
+      - stg_bigquery__shifts
+
+  - name: rest_type
+    description: ''
+    models:
+      - stg_bigquery__rests
+
+  - name: role
+    description: ''
+    models:
+      - stg_bigquery__memberships
+
+  - name: show_real_and_planned_hours_on_planning
+    description: ''
+    models:
+      - stg_bigquery__accounts
+
+  - name: social_tax
+    description: ''
+    models:
+      - stg_bigquery__accounts
+
+  - name: sort_index
+    description: ''
+    models:
+      - stg_bigquery__memberships
+
+  - name: start_time
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
+
+  - name: starts_at
+    description: ''
+    models:
+      - stg_bigquery__rests
+      - stg_bigquery__shifts
+
+  - name: street
+    description: ''
+    models:
+      - stg_bigquery__accounts
+
+  - name: street_address
+    description: ''
+    models:
+      - stg_bigquery__memberships
+      - stg_bigquery__user_contracts
+
+  - name: team_id
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
+
+  - name: time_zone
+    description: ''
+    models:
+      - stg_bigquery__accounts
+
+  - name: timeoff_id
+    description: ''
+    models:
+      - stg_bigquery__rests
+
+  - name: type
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
+
+  - name: updated_at
+    description: ''
+    models:
+      - stg_bigquery__accounts
+      - stg_bigquery__locations
+      - stg_bigquery__memberships
+      - stg_bigquery__rests
+      - stg_bigquery__shifts
+      - stg_bigquery__user_contracts
+
+  - name: user_contract_id
+    description: ''
+    models:
+      - stg_bigquery__rests
+      - stg_bigquery__shifts
+
+  - name: user_id
+    description: ''
+    models:
+      - stg_bigquery__memberships
+
+  - name: validated_at
+    description: ''
+    models:
+      - stg_bigquery__shifts
+
+  - name: validator_id
+    description: ''
+    models:
+      - stg_bigquery__shifts
+
+  - name: virtual
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
+
+  - name: weeklyschedule_id
+    description: ''
+    models:
+      - stg_bigquery__shifts
+
+  - name: working_days_in_week
+    description: ''
+    models:
+      - stg_bigquery__user_contracts
+
+  - name: zip
+    description: ''
+    models:
+      - stg_bigquery__accounts
+
+  - name: zipcode
+    description: ''
+    models:
+      - stg_bigquery__locations

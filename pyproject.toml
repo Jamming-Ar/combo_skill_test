@@ -7,3 +7,8 @@ requires-python = ">=3.12"
 dependencies = [
     "dbt-bigquery>=1.11.1",
 ]
+
+[dependency-groups]
+dev = [
+    "dbt-datadict>=0.4.0",
+]
