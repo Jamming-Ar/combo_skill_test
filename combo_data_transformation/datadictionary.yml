@@ -9,11 +9,6 @@ dictionary:
       - stg_bigquery__shifts
       - stg_bigquery__user_contracts
 
-  - name: active
-    description: ''
-    models:
-      - stg_bigquery__memberships
-
   - name: address
     description: ''
     models:
@@ -179,7 +174,6 @@ dictionary:
     models:
       - stg_bigquery__accounts
       - stg_bigquery__locations
-      - stg_bigquery__memberships
       - stg_bigquery__rests
       - stg_bigquery__shifts
       - stg_bigquery__user_contracts
@@ -193,6 +187,11 @@ dictionary:
     description: ''
     models:
       - stg_bigquery__user_contracts
+
+  - name: is_active_membership
+    description: ''
+    models:
+      - stg_bigquery__memberships
 
   - name: label_id
     description: ''
@@ -223,7 +222,18 @@ dictionary:
   - name: membership_id
     description: ''
     models:
+      - stg_bigquery__memberships
       - stg_bigquery__user_contracts
+
+  - name: membership_preferences
+    description: ''
+    models:
+      - stg_bigquery__memberships
+
+  - name: membership_role
+    description: ''
+    models:
+      - stg_bigquery__memberships
 
   - name: minimum_shift_duration_for_automatic_breaks_in_hours
     description: ''
@@ -295,7 +305,6 @@ dictionary:
     models:
       - stg_bigquery__accounts
       - stg_bigquery__locations
-      - stg_bigquery__memberships
 
   - name: public_holiday_overtime_rate
     description: ''
@@ -326,11 +335,6 @@ dictionary:
     description: ''
     models:
       - stg_bigquery__rests
-
-  - name: role
-    description: ''
-    models:
-      - stg_bigquery__memberships
 
   - name: show_real_and_planned_hours_on_planning
     description: ''

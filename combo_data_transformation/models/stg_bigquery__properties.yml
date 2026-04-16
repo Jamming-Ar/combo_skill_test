@@ -169,10 +169,6 @@ models:
         data_type: int64
         description: ''
 
-      - name: active
-        data_type: string
-        description: ''
-
       - name: can_invalidate_shift
         data_type: boolean
         description: ''
@@ -201,24 +197,28 @@ models:
         data_type: string
         description: ''
 
-      - name: id
-        data_type: int64
+      - name: is_active_membership
+        data_type: string
         description: ''
 
       - name: lastname
         data_type: string
         description: ''
 
+      - name: membership_id
+        data_type: int64
+        description: ''
+
+      - name: membership_preferences
+        data_type: string
+        description: ''
+
+      - name: membership_role
+        data_type: string
+        description: ''
+
       - name: onboarded
         data_type: boolean
-        description: ''
-
-      - name: preferences
-        data_type: string
-        description: ''
-
-      - name: role
-        data_type: string
         description: ''
 
       - name: sort_index
