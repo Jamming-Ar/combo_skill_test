@@ -1,3 +1,28 @@
+with
+
+renamed as (
+    select
+        id,
+        user_id,
+        account_id,
+        active,
+        role,
+        created_at,
+        updated_at,
+        sort_index,
+        preferences,
+        onboarded,
+        can_manage_published_planning,
+        can_invalidate_shift,
+        can_remove_employee,
+        can_set_custom_rest_value,
+        lastname,
+        street_address,
+        enhanced_medical_examination,
+        firstname
+    from {{ source('sources', 'memberships') }}
+),
+
 select
     id,
     user_id,
@@ -17,4 +42,4 @@ select
     street_address,
     enhanced_medical_examination,
     firstname
-from {{ source('sources', 'memberships') }}
+from renamed

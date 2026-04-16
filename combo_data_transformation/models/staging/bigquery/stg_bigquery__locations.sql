@@ -1,3 +1,30 @@
+with
+
+renamed as (
+    select
+        id,
+        name,
+        account_id,
+        created_at,
+        updated_at,
+        address,
+        preferences,
+        city,
+        zipcode,
+        collective_agreement_id,
+        country,
+        partner_id,
+        archived,
+        default_break_duration,
+        payroll_software_identifier,
+        enable_public_holiday_configuration,
+        public_holiday_overtime_rate,
+        public_holiday_paid_by_default,
+        location_type,
+        minimum_shift_duration_for_automatic_breaks_in_hours
+    from {{ source('sources', 'locations') }}
+),
+
 select
     id,
     name,
@@ -19,4 +46,4 @@ select
     public_holiday_paid_by_default,
     location_type,
     minimum_shift_duration_for_automatic_breaks_in_hours
-from {{ source('sources', 'locations') }}
+from renamed
