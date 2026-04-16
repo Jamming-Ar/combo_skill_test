@@ -2,7 +2,7 @@ with
 
 renamed as (
     select
-        id,
+        id as rest_id,
         user_contract_id,
         timeoff_id,
         original_shift_id,
@@ -15,10 +15,10 @@ renamed as (
         custom_value,
         account_id
     from {{ source('sources', 'rests') }}
-),
+)
 
 select
-    id,
+    rest_id,
     user_contract_id,
     timeoff_id,
     original_shift_id,

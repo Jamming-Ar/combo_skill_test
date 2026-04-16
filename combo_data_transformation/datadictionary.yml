@@ -176,7 +176,6 @@ dictionary:
   - name: id
     description: ''
     models:
-      - stg_bigquery__rests
       - stg_bigquery__shifts
       - stg_bigquery__user_contracts
 
@@ -356,6 +355,11 @@ dictionary:
     description: ''
     models:
       - stg_bigquery__shifts
+
+  - name: rest_id
+    description: ''
+    models:
+      - stg_bigquery__rests
 
   - name: rest_type
     description: ''

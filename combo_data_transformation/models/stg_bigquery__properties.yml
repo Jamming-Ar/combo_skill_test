@@ -256,16 +256,16 @@ models:
         data_type: timestamp
         description: ''
 
-      - name: id
-        data_type: int64
-        description: ''
-
       - name: original_shift_id
         data_type: int64
         description: ''
 
       - name: partner_id
         data_type: string
+        description: ''
+
+      - name: rest_id
+        data_type: int64
         description: ''
 
       - name: rest_type
