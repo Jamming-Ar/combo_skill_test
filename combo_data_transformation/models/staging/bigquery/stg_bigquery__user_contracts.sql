@@ -3,8 +3,8 @@ with
 renamed as (
     select
         id as user_contract_id,
-        created_at,
-        updated_at,
+        created_at as user_contract_created_at,
+        updated_at as user_contract_updated_at,
         location_id,
         contract_end,
         contract_time,
@@ -34,8 +34,8 @@ renamed as (
 
 select
     user_contract_id,
-    created_at,
-    updated_at,
+    user_contract_created_at,
+    user_contract_updated_at,
     location_id,
     contract_end,
     contract_time,

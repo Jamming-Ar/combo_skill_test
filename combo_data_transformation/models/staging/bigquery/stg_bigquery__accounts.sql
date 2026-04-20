@@ -4,8 +4,8 @@ renamed as (
     select
         id as account_id,
         name as account_name,
-        created_at,
-        updated_at,
+        created_at as account_created_at,
+        updated_at as account_updated_at,
         time_zone,
         default_language as account_default_language,
         city as account_city,
@@ -27,8 +27,8 @@ renamed as (
 select
     account_id,
     account_name,
-    created_at,
-    updated_at,
+    account_created_at,
+    account_updated_at,
     time_zone,
     account_default_language,
     account_city,
