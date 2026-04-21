@@ -1,0 +1,484 @@
+version: 2
+models:
+  - name: stg_bigquery__accounts
+    description: ''
+    columns:
+      - name: account_city
+        data_type: string
+        description: 'City of the account headquarters'
+
+      - name: account_country
+        data_type: string
+        description: 'Country of the account'
+
+      - name: account_created_at
+        data_type: timestamp
+        description: 'Timestamp when the account was created'
+
+      - name: account_default_language
+        data_type: string
+        description: 'Default language set for the account'
+
+      - name: account_id
+        data_type: int64
+        description: 'Unique identifier of the account (client company)'
+
+      - name: account_name
+        data_type: string
+        description: 'Name of the client company'
+
+      - name: account_preferences
+        data_type: string
+        description: 'JSON object storing account-level feature flags and UI settings (e.g. timeclock, planning display, notifications, payroll options)'
+
+      - name: account_updated_at
+        data_type: timestamp
+        description: 'Timestamp when the account was last updated'
+
+      - name: account_zip
+        data_type: string
+        description: 'Zip code of the account headquarters'
+
+      - name: cheat_sheet_hour_cut
+        data_type: int64
+        description: ''
+
+      - name: collective_agreement_id
+        data_type: int64
+        description: 'Reference to the applicable collective labor agreement'
+
+      - name: is_blocked
+        data_type: boolean
+        description: 'Whether the account is blocked'
+
+      - name: paid_breaks
+        data_type: boolean
+        description: 'Whether breaks are paid at this account'
+
+      - name: partner_id
+        data_type: string
+        description: ''
+
+      - name: payroll_software_id
+        data_type: string
+        description: 'Identifier used to link the account to an external payroll software'
+
+      - name: show_real_and_planned_hours_on_planning
+        data_type: boolean
+        description: 'Whether real and planned hours are both displayed on the planning view'
+
+      - name: social_tax
+        data_type: int64
+        description: ''
+
+      - name: street
+        data_type: string
+        description: 'Street address of the account headquarters'
+
+      - name: time_zone
+        data_type: string
+        description: 'Timezone of the account (e.g. Europe/Paris)'
+
+  - name: stg_bigquery__locations
+    description: ''
+    columns:
+      - name: account_id
+        data_type: int64
+        description: 'Unique identifier of the account (client company)'
+
+      - name: archived
+        data_type: string
+        description: 'True if the location is archived'
+
+      - name: collective_agreement_id
+        data_type: int64
+        description: 'Reference to the applicable collective labor agreement'
+
+      - name: default_break_duration
+        data_type: int64
+        description: 'Default break duration in minutes applied to shifts at this location'
+
+      - name: enable_public_holiday_configuration
+        data_type: boolean
+        description: 'Whether public holiday configuration is enabled for this location'
+
+      - name: location_address
+        data_type: string
+        description: 'Street address of the location'
+
+      - name: location_city
+        data_type: string
+        description: 'City of the location'
+
+      - name: location_country
+        data_type: string
+        description: 'Country of the location'
+
+      - name: location_created_at
+        data_type: timestamp
+        description: 'Timestamp when the location was created'
+
+      - name: location_id
+        data_type: int64
+        description: 'Unique identifier of the location'
+
+      - name: location_name
+        data_type: string
+        description: 'Name of the establishment (e.g. Boutique Centre-ville)'
+
+      - name: location_preferences
+        data_type: string
+        description: 'JSON object storing location-level configuration (e.g. annualisation, timeclock, modulation, productivity objectives)'
+
+      - name: location_type
+        data_type: string
+        description: 'Type of establishment (e.g. restaurant, shop, etc.)'
+
+      - name: location_updated_at
+        data_type: timestamp
+        description: 'Timestamp when the location was last updated'
+
+      - name: location_zipcode
+        data_type: string
+        description: 'Zip code of the location'
+
+      - name: minimum_shift_duration_for_automatic_breaks_in_hours
+        data_type: int64
+        description: 'Minimum shift duration in hours required to trigger automatic break deduction'
+
+      - name: partner_id
+        data_type: string
+        description: ''
+
+      - name: payroll_software_identifier
+        data_type: string
+        description: 'Identifier used to link the location to an external payroll software'
+
+      - name: public_holiday_overtime_rate
+        data_type: int64
+        description: 'Overtime rate applied on public holidays at this location'
+
+      - name: public_holiday_paid_by_default
+        data_type: boolean
+        description: 'Whether public holidays are paid by default at this location'
+
+  - name: stg_bigquery__memberships
+    description: ''
+    columns:
+      - name: account_id
+        data_type: int64
+        description: 'Unique identifier of the account (client company)'
+
+      - name: can_invalidate_shift
+        data_type: boolean
+        description: 'Whether the member can invalidate shifts'
+
+      - name: can_manage_published_planning
+        data_type: boolean
+        description: 'Whether the member can manage published planning'
+
+      - name: can_remove_employee
+        data_type: boolean
+        description: 'Whether the member can remove employees'
+
+      - name: can_set_custom_rest_value
+        data_type: boolean
+        description: 'Whether the member can set custom rest values'
+
+      - name: enhanced_medical_examination
+        data_type: boolean
+        description: 'Whether the employee is subject to enhanced medical monitoring'
+
+      - name: firstname
+        data_type: string
+        description: 'First name of the employee'
+
+      - name: is_active_membership
+        data_type: string
+        description: 'Whether the membership is currently active'
+
+      - name: lastname
+        data_type: string
+        description: 'Last name of the employee'
+
+      - name: membership_created_at
+        data_type: timestamp
+        description: 'Timestamp when the membership was created'
+
+      - name: membership_id
+        data_type: int64
+        description: 'Unique identifier of the membership (employee in an account)'
+
+      - name: membership_preferences
+        data_type: string
+        description: 'JSON object storing member-level settings (e.g. notification preferences, planning visibility, calendar sync)'
+
+      - name: membership_role
+        data_type: string
+        description: 'Role of the member within the account (employee, manager, owner)'
+
+      - name: membership_updated_at
+        data_type: timestamp
+        description: 'Timestamp when the membership was last updated'
+
+      - name: onboarded
+        data_type: boolean
+        description: 'Whether the employee has completed the onboarding process'
+
+      - name: sort_index
+        data_type: string
+        description: ''
+
+      - name: street_address
+        data_type: string
+        description: 'Street address of the employee'
+
+      - name: user_id
+        data_type: int64
+        description: 'Unique identifier of the user across all accounts'
+
+  - name: stg_bigquery__rests
+    description: ''
+    columns:
+      - name: account_id
+        data_type: int64
+        description: 'Unique identifier of the account (client company)'
+
+      - name: custom_value
+        data_type: string
+        description: ''
+
+      - name: original_shift_id
+        data_type: int64
+        description: 'Reference to the original shift that this rest period replaces'
+
+      - name: partner_id
+        data_type: string
+        description: ''
+
+      - name: rest_created_at
+        data_type: timestamp
+        description: 'Timestamp when the rest record was created'
+
+      - name: rest_ends_at
+        data_type: timestamp
+        description: 'End datetime of the rest period (UTC)'
+
+      - name: rest_id
+        data_type: int64
+        description: 'Unique identifier of the rest period'
+
+      - name: rest_starts_at
+        data_type: timestamp
+        description: 'Start datetime of the rest period (UTC)'
+
+      - name: rest_type
+        data_type: string
+        description: 'Type of rest (weekly_rest, compensatory_rest, formation, etc.)'
+
+      - name: rest_updated_at
+        data_type: timestamp
+        description: 'Timestamp when the rest record was last updated'
+
+      - name: timeoff_id
+        data_type: int64
+        description: 'Reference to the time-off request linked to this rest period'
+
+      - name: user_contract_id
+        data_type: int64
+        description: 'Unique identifier of the contract linking an employee to a home location'
+
+  - name: stg_bigquery__shifts
+    description: ''
+    columns:
+      - name: account_id
+        data_type: int64
+        description: 'Unique identifier of the account (client company)'
+
+      - name: breakduration_in_minutes
+        data_type: int64
+        description: ''
+
+      - name: did_not_show
+        data_type: string
+        description: 'Indicates whether the employee did not show up for the shift'
+
+      - name: label_id
+        data_type: int64
+        description: ''
+
+      - name: locked_at
+        data_type: string
+        description: ''
+
+      - name: partner_id
+        data_type: string
+        description: ''
+
+      - name: planification_type
+        data_type: string
+        description: 'Type of planning for the shift (e.g. work shift, training, etc.)'
+
+      - name: planned_hours_last_edited_at
+        data_type: timestamp
+        description: 'Timestamp of the last edit to the planned hours of the shift'
+
+      - name: planned_hours_last_edited_by_id
+        data_type: int64
+        description: 'Identifier of the user who last edited the planned hours'
+
+      - name: real_breakduration_in_minutes
+        data_type: int64
+        description: ''
+
+      - name: real_ends_at
+        data_type: timestamp
+        description: 'Actual end timestamp of the shift as recorded'
+
+      - name: real_starts_at
+        data_type: timestamp
+        description: 'Actual start timestamp of the shift as recorded'
+
+      - name: shift_created_at
+        data_type: timestamp
+        description: 'Timestamp when the shift was created'
+
+      - name: shift_ends_at
+        data_type: timestamp
+        description: 'Planned end datetime of the shift (UTC)'
+
+      - name: shift_id
+        data_type: int64
+        description: 'Unique identifier of the shift'
+
+      - name: shift_starts_at
+        data_type: timestamp
+        description: 'Planned start datetime of the shift (UTC)'
+
+      - name: shift_updated_at
+        data_type: timestamp
+        description: 'Timestamp when the shift was last updated'
+
+      - name: user_contract_id
+        data_type: int64
+        description: 'Unique identifier of the contract linking an employee to a home location'
+
+      - name: validated_at
+        data_type: timestamp
+        description: 'Timestamp when the shift was validated by a manager'
+
+      - name: validator_id
+        data_type: int64
+        description: 'Identifier of the user who validated the shift'
+
+  - name: stg_bigquery__user_contracts
+    description: ''
+    columns:
+      - name: account_id
+        data_type: int64
+        description: 'Unique identifier of the account (client company)'
+
+      - name: birth_department_code
+        data_type: int64
+        description: ''
+
+      - name: contract_end
+        data_type: date
+        description: 'Contract end date (null for open-ended CDI contracts)'
+
+      - name: contract_end_reason
+        data_type: string
+        description: 'Reason for contract termination'
+
+      - name: contract_end_trial
+        data_type: date
+        description: 'End date of the trial period'
+
+      - name: contract_start
+        data_type: string
+        description: 'Contract start date'
+
+      - name: contract_time
+        data_type: string
+        description: 'Weekly planned working hours defined in the contract'
+
+      - name: contract_type
+        data_type: string
+        description: 'Type of contract (CDI, CDD, seasonal, etc.)'
+
+      - name: daily_worker
+        data_type: string
+        description: ''
+
+      - name: do_not_show_in_register
+        data_type: boolean
+        description: 'Whether the contract should be hidden from the HR register'
+
+      - name: invitation_accepted_at
+        data_type: timestamp
+        description: 'Timestamp when the employee accepted their invitation to the platform'
+
+      - name: invitation_sent_at
+        data_type: timestamp
+        description: 'Timestamp when the invitation was sent to the employee'
+
+      - name: location_id
+        data_type: int64
+        description: 'Unique identifier of the location'
+
+      - name: membership_id
+        data_type: int64
+        description: 'Unique identifier of the membership (employee in an account)'
+
+      - name: original_contract_id
+        data_type: int64
+        description: 'Reference to the original contract if this contract is a renewal or amendment'
+
+      - name: partner_id
+        data_type: string
+        description: ''
+
+      - name: start_time
+        data_type: timestamp
+        description: ''
+
+      - name: team_id
+        data_type: int64
+        description: 'Reference to the team the employee belongs to'
+
+      - name: user_contract_created_at
+        data_type: timestamp
+        description: 'Timestamp when the contract was created'
+
+      - name: user_contract_firstname
+        data_type: string
+        description: 'First name of the employee as recorded on the contract'
+
+      - name: user_contract_id
+        data_type: int64
+        description: 'Unique identifier of the contract linking an employee to a home location'
+
+      - name: user_contract_lastname
+        data_type: string
+        description: 'Last name of the employee as recorded on the contract'
+
+      - name: user_contract_street_address
+        data_type: string
+        description: 'Street address of the employee as recorded on the contract'
+
+      - name: user_contract_type
+        data_type: string
+        description: ''
+
+      - name: user_contract_updated_at
+        data_type: timestamp
+        description: 'Timestamp when the contract was last updated'
+
+      - name: virtual
+        data_type: string
+        description: ''
+
+      - name: working_days_in_week
+        data_type: int64
+        description: 'Number of working days per week defined in the contract'
+

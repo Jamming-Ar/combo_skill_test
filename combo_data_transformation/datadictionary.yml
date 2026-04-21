@@ -1,22 +1,27 @@
 dictionary:
 
   - name: account_city
-    description: ''
+    description: 'City of the account headquarters'
     models:
       - stg_bigquery__accounts
 
   - name: account_country
-    description: ''
+    description: 'Country of the account'
+    models:
+      - stg_bigquery__accounts
+
+  - name: account_created_at
+    description: 'Timestamp when the account was created'
     models:
       - stg_bigquery__accounts
 
   - name: account_default_language
-    description: ''
+    description: 'Default language set for the account'
     models:
       - stg_bigquery__accounts
 
   - name: account_id
-    description: ''
+    description: 'Unique identifier of the account (client company)'
     models:
       - stg_bigquery__accounts
       - stg_bigquery__locations
@@ -26,22 +31,27 @@ dictionary:
       - stg_bigquery__user_contracts
 
   - name: account_name
-    description: ''
+    description: 'Name of the client company'
     models:
       - stg_bigquery__accounts
 
   - name: account_preferences
-    description: ''
+    description: 'JSON object storing account-level feature flags and UI settings (e.g. timeclock, planning display, notifications, payroll options)'
+    models:
+      - stg_bigquery__accounts
+
+  - name: account_updated_at
+    description: 'Timestamp when the account was last updated'
     models:
       - stg_bigquery__accounts
 
   - name: account_zip
-    description: ''
+    description: 'Zip code of the account headquarters'
     models:
       - stg_bigquery__accounts
 
   - name: archived
-    description: ''
+    description: 'True if the location is archived'
     models:
       - stg_bigquery__locations
 
@@ -50,28 +60,28 @@ dictionary:
     models:
       - stg_bigquery__user_contracts
 
-  - name: breakduration
+  - name: breakduration_in_minutes
     description: ''
     models:
       - stg_bigquery__shifts
 
   - name: can_invalidate_shift
-    description: ''
+    description: 'Whether the member can invalidate shifts'
     models:
       - stg_bigquery__memberships
 
   - name: can_manage_published_planning
-    description: ''
+    description: 'Whether the member can manage published planning'
     models:
       - stg_bigquery__memberships
 
   - name: can_remove_employee
-    description: ''
+    description: 'Whether the member can remove employees'
     models:
       - stg_bigquery__memberships
 
   - name: can_set_custom_rest_value
-    description: ''
+    description: 'Whether the member can set custom rest values'
     models:
       - stg_bigquery__memberships
 
@@ -81,49 +91,39 @@ dictionary:
       - stg_bigquery__accounts
 
   - name: collective_agreement_id
-    description: ''
+    description: 'Reference to the applicable collective labor agreement'
     models:
       - stg_bigquery__accounts
       - stg_bigquery__locations
 
   - name: contract_end
-    description: ''
+    description: 'Contract end date (null for open-ended CDI contracts)'
     models:
       - stg_bigquery__user_contracts
 
   - name: contract_end_reason
-    description: ''
+    description: 'Reason for contract termination'
     models:
       - stg_bigquery__user_contracts
 
   - name: contract_end_trial
-    description: ''
+    description: 'End date of the trial period'
     models:
       - stg_bigquery__user_contracts
 
   - name: contract_start
-    description: ''
+    description: 'Contract start date'
     models:
       - stg_bigquery__user_contracts
 
   - name: contract_time
-    description: ''
+    description: 'Weekly planned working hours defined in the contract'
     models:
       - stg_bigquery__user_contracts
 
   - name: contract_type
-    description: ''
+    description: 'Type of contract (CDI, CDD, seasonal, etc.)'
     models:
-      - stg_bigquery__user_contracts
-
-  - name: created_at
-    description: ''
-    models:
-      - stg_bigquery__accounts
-      - stg_bigquery__locations
-      - stg_bigquery__memberships
-      - stg_bigquery__rests
-      - stg_bigquery__shifts
       - stg_bigquery__user_contracts
 
   - name: custom_value
@@ -137,63 +137,52 @@ dictionary:
       - stg_bigquery__user_contracts
 
   - name: default_break_duration
-    description: ''
+    description: 'Default break duration in minutes applied to shifts at this location'
     models:
       - stg_bigquery__locations
 
   - name: did_not_show
-    description: ''
+    description: 'Indicates whether the employee did not show up for the shift'
     models:
       - stg_bigquery__shifts
 
   - name: do_not_show_in_register
-    description: ''
+    description: 'Whether the contract should be hidden from the HR register'
     models:
       - stg_bigquery__user_contracts
 
   - name: enable_public_holiday_configuration
-    description: ''
+    description: 'Whether public holiday configuration is enabled for this location'
     models:
       - stg_bigquery__locations
 
-  - name: ends_at
-    description: ''
-    models:
-      - stg_bigquery__rests
-      - stg_bigquery__shifts
-
   - name: enhanced_medical_examination
-    description: ''
+    description: 'Whether the employee is subject to enhanced medical monitoring'
     models:
       - stg_bigquery__memberships
 
   - name: firstname
-    description: ''
+    description: 'First name of the employee'
     models:
       - stg_bigquery__memberships
 
-  - name: id
-    description: ''
-    models:
-      - stg_bigquery__shifts
-
   - name: invitation_accepted_at
-    description: ''
+    description: 'Timestamp when the employee accepted their invitation to the platform'
     models:
       - stg_bigquery__user_contracts
 
   - name: invitation_sent_at
-    description: ''
+    description: 'Timestamp when the invitation was sent to the employee'
     models:
       - stg_bigquery__user_contracts
 
   - name: is_active_membership
-    description: ''
+    description: 'Whether the membership is currently active'
     models:
       - stg_bigquery__memberships
 
   - name: is_blocked
-    description: ''
+    description: 'Whether the account is blocked'
     models:
       - stg_bigquery__accounts
 
@@ -203,48 +192,58 @@ dictionary:
       - stg_bigquery__shifts
 
   - name: lastname
-    description: ''
+    description: 'Last name of the employee'
     models:
       - stg_bigquery__memberships
 
   - name: location_address
-    description: ''
+    description: 'Street address of the location'
     models:
       - stg_bigquery__locations
 
   - name: location_city
-    description: ''
+    description: 'City of the location'
     models:
       - stg_bigquery__locations
 
   - name: location_country
-    description: ''
+    description: 'Country of the location'
+    models:
+      - stg_bigquery__locations
+
+  - name: location_created_at
+    description: 'Timestamp when the location was created'
     models:
       - stg_bigquery__locations
 
   - name: location_id
-    description: ''
+    description: 'Unique identifier of the location'
     models:
       - stg_bigquery__locations
       - stg_bigquery__user_contracts
 
   - name: location_name
-    description: ''
+    description: 'Name of the establishment (e.g. Boutique Centre-ville)'
     models:
       - stg_bigquery__locations
 
   - name: location_preferences
-    description: ''
+    description: 'JSON object storing location-level configuration (e.g. annualisation, timeclock, modulation, productivity objectives)'
     models:
       - stg_bigquery__locations
 
   - name: location_type
-    description: ''
+    description: 'Type of establishment (e.g. restaurant, shop, etc.)'
+    models:
+      - stg_bigquery__locations
+
+  - name: location_updated_at
+    description: 'Timestamp when the location was last updated'
     models:
       - stg_bigquery__locations
 
   - name: location_zipcode
-    description: ''
+    description: 'Zip code of the location'
     models:
       - stg_bigquery__locations
 
@@ -253,44 +252,54 @@ dictionary:
     models:
       - stg_bigquery__shifts
 
+  - name: membership_created_at
+    description: 'Timestamp when the membership was created'
+    models:
+      - stg_bigquery__memberships
+
   - name: membership_id
-    description: ''
+    description: 'Unique identifier of the membership (employee in an account)'
     models:
       - stg_bigquery__memberships
       - stg_bigquery__user_contracts
 
   - name: membership_preferences
-    description: ''
+    description: 'JSON object storing member-level settings (e.g. notification preferences, planning visibility, calendar sync)'
     models:
       - stg_bigquery__memberships
 
   - name: membership_role
-    description: ''
+    description: 'Role of the member within the account (employee, manager, owner)'
+    models:
+      - stg_bigquery__memberships
+
+  - name: membership_updated_at
+    description: 'Timestamp when the membership was last updated'
     models:
       - stg_bigquery__memberships
 
   - name: minimum_shift_duration_for_automatic_breaks_in_hours
-    description: ''
+    description: 'Minimum shift duration in hours required to trigger automatic break deduction'
     models:
       - stg_bigquery__locations
 
   - name: onboarded
-    description: ''
+    description: 'Whether the employee has completed the onboarding process'
     models:
       - stg_bigquery__memberships
 
   - name: original_contract_id
-    description: ''
+    description: 'Reference to the original contract if this contract is a renewal or amendment'
     models:
       - stg_bigquery__user_contracts
 
   - name: original_shift_id
-    description: ''
+    description: 'Reference to the original shift that this rest period replaces'
     models:
       - stg_bigquery__rests
 
   - name: paid_breaks
-    description: ''
+    description: 'Whether breaks are paid at this account'
     models:
       - stg_bigquery__accounts
 
@@ -304,67 +313,112 @@ dictionary:
       - stg_bigquery__user_contracts
 
   - name: payroll_software_id
-    description: ''
+    description: 'Identifier used to link the account to an external payroll software'
     models:
       - stg_bigquery__accounts
 
   - name: payroll_software_identifier
-    description: ''
+    description: 'Identifier used to link the location to an external payroll software'
     models:
       - stg_bigquery__locations
 
   - name: planification_type
-    description: ''
+    description: 'Type of planning for the shift (e.g. work shift, training, etc.)'
     models:
       - stg_bigquery__shifts
 
   - name: planned_hours_last_edited_at
-    description: ''
+    description: 'Timestamp of the last edit to the planned hours of the shift'
     models:
       - stg_bigquery__shifts
 
   - name: planned_hours_last_edited_by_id
-    description: ''
+    description: 'Identifier of the user who last edited the planned hours'
     models:
       - stg_bigquery__shifts
 
   - name: public_holiday_overtime_rate
-    description: ''
+    description: 'Overtime rate applied on public holidays at this location'
     models:
       - stg_bigquery__locations
 
   - name: public_holiday_paid_by_default
-    description: ''
+    description: 'Whether public holidays are paid by default at this location'
     models:
       - stg_bigquery__locations
 
-  - name: real_breakduration
+  - name: real_breakduration_in_minutes
     description: ''
     models:
       - stg_bigquery__shifts
 
   - name: real_ends_at
-    description: ''
+    description: 'Actual end timestamp of the shift as recorded'
     models:
       - stg_bigquery__shifts
 
   - name: real_starts_at
-    description: ''
+    description: 'Actual start timestamp of the shift as recorded'
     models:
       - stg_bigquery__shifts
 
+  - name: rest_created_at
+    description: 'Timestamp when the rest record was created'
+    models:
+      - stg_bigquery__rests
+
+  - name: rest_ends_at
+    description: 'End datetime of the rest period (UTC)'
+    models:
+      - stg_bigquery__rests
+
   - name: rest_id
-    description: ''
+    description: 'Unique identifier of the rest period'
+    models:
+      - stg_bigquery__rests
+
+  - name: rest_starts_at
+    description: 'Start datetime of the rest period (UTC)'
     models:
       - stg_bigquery__rests
 
   - name: rest_type
-    description: ''
+    description: 'Type of rest (weekly_rest, compensatory_rest, formation, etc.)'
     models:
       - stg_bigquery__rests
 
+  - name: rest_updated_at
+    description: 'Timestamp when the rest record was last updated'
+    models:
+      - stg_bigquery__rests
+
+  - name: shift_created_at
+    description: 'Timestamp when the shift was created'
+    models:
+      - stg_bigquery__shifts
+
+  - name: shift_ends_at
+    description: 'Planned end datetime of the shift (UTC)'
+    models:
+      - stg_bigquery__shifts
+
+  - name: shift_id
+    description: 'Unique identifier of the shift'
+    models:
+      - stg_bigquery__shifts
+
+  - name: shift_starts_at
+    description: 'Planned start datetime of the shift (UTC)'
+    models:
+      - stg_bigquery__shifts
+
+  - name: shift_updated_at
+    description: 'Timestamp when the shift was last updated'
+    models:
+      - stg_bigquery__shifts
+
   - name: show_real_and_planned_hours_on_planning
-    description: ''
+    description: 'Whether real and planned hours are both displayed on the planning view'
     models:
       - stg_bigquery__accounts
 
@@ -383,66 +437,55 @@ dictionary:
     models:
       - stg_bigquery__user_contracts
 
-  - name: starts_at
-    description: ''
-    models:
-      - stg_bigquery__rests
-      - stg_bigquery__shifts
-
   - name: street
-    description: ''
+    description: 'Street address of the account headquarters'
     models:
       - stg_bigquery__accounts
 
   - name: street_address
-    description: ''
+    description: 'Street address of the employee'
     models:
       - stg_bigquery__memberships
 
   - name: team_id
-    description: ''
+    description: 'Reference to the team the employee belongs to'
     models:
       - stg_bigquery__user_contracts
 
   - name: time_zone
-    description: ''
+    description: 'Timezone of the account (e.g. Europe/Paris)'
     models:
       - stg_bigquery__accounts
 
   - name: timeoff_id
-    description: ''
+    description: 'Reference to the time-off request linked to this rest period'
     models:
       - stg_bigquery__rests
 
-  - name: updated_at
-    description: ''
+  - name: user_contract_created_at
+    description: 'Timestamp when the contract was created'
     models:
-      - stg_bigquery__accounts
-      - stg_bigquery__locations
-      - stg_bigquery__memberships
-      - stg_bigquery__rests
-      - stg_bigquery__shifts
       - stg_bigquery__user_contracts
 
   - name: user_contract_firstname
-    description: ''
+    description: 'First name of the employee as recorded on the contract'
     models:
       - stg_bigquery__user_contracts
 
   - name: user_contract_id
-    description: ''
+    description: 'Unique identifier of the contract linking an employee to a home location'
     models:
       - stg_bigquery__rests
       - stg_bigquery__shifts
       - stg_bigquery__user_contracts
 
   - name: user_contract_lastname
-    description: ''
+    description: 'Last name of the employee as recorded on the contract'
     models:
       - stg_bigquery__user_contracts
 
   - name: user_contract_street_address
-    description: ''
+    description: 'Street address of the employee as recorded on the contract'
     models:
       - stg_bigquery__user_contracts
 
@@ -451,18 +494,23 @@ dictionary:
     models:
       - stg_bigquery__user_contracts
 
+  - name: user_contract_updated_at
+    description: 'Timestamp when the contract was last updated'
+    models:
+      - stg_bigquery__user_contracts
+
   - name: user_id
-    description: ''
+    description: 'Unique identifier of the user across all accounts'
     models:
       - stg_bigquery__memberships
 
   - name: validated_at
-    description: ''
+    description: 'Timestamp when the shift was validated by a manager'
     models:
       - stg_bigquery__shifts
 
   - name: validator_id
-    description: ''
+    description: 'Identifier of the user who validated the shift'
     models:
       - stg_bigquery__shifts
 
@@ -471,12 +519,7 @@ dictionary:
     models:
       - stg_bigquery__user_contracts
 
-  - name: weeklyschedule_id
-    description: ''
-    models:
-      - stg_bigquery__shifts
-
   - name: working_days_in_week
-    description: ''
+    description: 'Number of working days per week defined in the contract'
     models:
       - stg_bigquery__user_contracts
