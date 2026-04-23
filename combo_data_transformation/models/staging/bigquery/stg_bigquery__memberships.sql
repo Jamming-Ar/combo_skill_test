@@ -7,19 +7,8 @@ renamed as (
         account_id,
         active as is_active_membership,
         role as membership_role,
-        created_at as membership_created_at,
-        updated_at as membership_updated_at,
-        sort_index,
-        preferences as membership_preferences,
-        onboarded,
-        can_manage_published_planning,
-        can_invalidate_shift,
-        can_remove_employee,
-        can_set_custom_rest_value,
-        lastname,
-        street_address,
-        enhanced_medical_examination,
-        firstname
+        firstname,
+        lastname
     from {{ source('sources', 'memberships') }}
 )
 
@@ -29,17 +18,6 @@ select
     account_id,
     is_active_membership,
     membership_role,
-    membership_created_at,
-    membership_updated_at,
-    sort_index,
-    membership_preferences,
-    onboarded,
-    can_manage_published_planning,
-    can_invalidate_shift,
-    can_remove_employee,
-    can_set_custom_rest_value,
-    lastname,
-    street_address,
-    enhanced_medical_examination,
-    firstname
+    firstname,
+    lastname
 from renamed
