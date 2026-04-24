@@ -5,7 +5,7 @@ renamed as (
         id as location_id,
         name as location_name,
         account_id,
-        case lower(archived)
+        ifnull(case lower(archived)
             when 'true'  then true
             when 'yes'   then true
             when '1'     then true
@@ -13,7 +13,7 @@ renamed as (
             when 'no'    then false
             when '0'     then false
             else null
-        end as archived,
+        end, false) as is_archived,
         city as location_city,
         zipcode as location_zipcode,
         country as location_country
@@ -24,7 +24,7 @@ select
     location_id,
     location_name,
     account_id,
-    archived,
+    is_archived,
     location_city,
     location_zipcode,
     location_country

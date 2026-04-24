@@ -48,9 +48,9 @@ models:
               to: ref('stg_bigquery__accounts')
               field: account_id
 
-      - name: archived
-        data_type: string
-        description: 'Whether the location is archived (non-active locations are not billable)'
+      - name: is_archived
+        data_type: bool
+        description: 'true if the location is archived (non-billable). Normalized from 10 STRING formats via CASE LOWER + IFNULL.'
 
       - name: location_city
         data_type: string
@@ -136,13 +136,13 @@ models:
               to: ref('stg_bigquery__accounts')
               field: account_id
 
-      - name: contract_start
-        data_type: string
-        description: 'Contract start date'
+      - name: contract_start_date
+        data_type: date
+        description: 'Contract start date (normalized from STRING source via normalize_date macro)'
         tests:
           - not_null
 
-      - name: contract_end
+      - name: contract_end_date
         data_type: date
         description: 'Contract end date (null for open-ended CDI contracts)'
 

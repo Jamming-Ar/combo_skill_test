@@ -13,7 +13,7 @@ renamed as (
             when 'no'    then false
             when '0'     then false
             else null
-        end as active,
+        end as is_active_membership,
         role as membership_role,
         firstname,
         lastname
@@ -24,7 +24,7 @@ select
     membership_id,
     user_id,
     account_id,
-    active,
+    is_active_membership,
     membership_role,
     firstname,
     lastname

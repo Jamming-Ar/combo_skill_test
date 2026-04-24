@@ -1,0 +1,189 @@
+version: 2
+
+models:
+  - name: int_dim_accounts
+    description: 'Dimension des comptes clients (accounts). Passthrough depuis staging.'
+    columns:
+      - name: account_id
+        data_type: int64
+        description: 'Identifiant unique du compte client'
+        tests:
+          - unique
+          - not_null
+
+      - name: account_name
+        data_type: string
+        description: 'Nom du compte client'
+
+      - name: account_created_at
+        data_type: timestamp
+        description: 'Date de création du compte'
+
+      - name: time_zone
+        data_type: string
+        description: 'Fuseau horaire du compte'
+
+      - name: account_country
+        data_type: string
+        description: 'Pays du compte'
+
+  - name: int_dim_locations
+    description: >
+      Dimension des établissements (locations) enrichie.
+      La normalisation de archived (10 formats STRING dans la source) est déjà faite
+      en staging via CASE LOWER(archived). Ce modèle expose is_archived = IFNULL(archived, false)
+      pour sécuriser les NULLs résiduels. Une location est facturable si is_archived = false.
+    columns:
+      - name: location_id
+        data_type: int64
+        description: 'Identifiant unique de la location'
+        tests:
+          - unique
+          - not_null
+
+      - name: location_name
+        data_type: string
+        description: 'Nom de l établissement'
+
+      - name: account_id
+        data_type: int64
+        description: 'Compte auquel appartient la location'
+        tests:
+          - not_null
+
+      - name: is_archived
+        data_type: bool
+        description: >
+          true si la location est archivée (non facturable).
+          Dérivé de archived (BOOL) normalisé en staging. IFNULL sécurise les NULLs.
+        tests:
+          - not_null
+
+      - name: location_city
+        data_type: string
+        description: 'Ville de la location'
+
+      - name: location_zipcode
+        data_type: string
+        description: 'Code postal de la location'
+
+      - name: location_country
+        data_type: string
+        description: 'Pays de la location'
+
+  - name: int_dim_contracts
+    description: >
+      Dimension des contrats enrichie avec les informations du membership (personne physique).
+      Normalise active (STRING) en is_active_membership (BOOL).
+      Gère les deux formats de contract_start : YYYY-MM-DD et DD/MM/YYYY (201 contrats concernés).
+      Ajoute le flag is_duplicate_active_contract pour les 69 couples membership × location
+      ayant plusieurs CDI ouverts simultanément.
+    columns:
+      - name: user_contract_id
+        data_type: int64
+        description: 'Identifiant unique du contrat'
+        tests:
+          - unique
+          - not_null
+
+      - name: membership_id
+        data_type: int64
+        description: 'Identifiant de la personne physique (membership)'
+
+      - name: location_id
+        data_type: int64
+        description: 'Location de rattachement du contrat (lieu de facturation)'
+        tests:
+          - not_null
+
+      - name: account_id
+        data_type: int64
+        description: 'Compte auquel appartient le contrat'
+        tests:
+          - not_null
+
+      - name: contract_start_date
+        data_type: date
+        description: 'Date de début du contrat, normalisée en staging via normalize_date macro'
+
+      - name: contract_end_date
+        data_type: date
+        description: 'Date de fin du contrat (NULL = CDI en cours)'
+
+      - name: contract_type
+        data_type: string
+        description: 'Type de contrat (CDI, CDD, seasonal, etc.)'
+
+      - name: contract_time
+        data_type: string
+        description: 'Temps de travail hebdomadaire prévu'
+
+      - name: user_id
+        data_type: int64
+        description: 'Identifiant utilisateur cross-comptes'
+
+      - name: firstname
+        data_type: string
+        description: 'Prénom de l employé'
+
+      - name: lastname
+        data_type: string
+        description: 'Nom de l employé'
+
+      - name: is_active_membership
+        data_type: bool
+        description: 'true si le membership est actif. Normalise les 10 formats source.'
+
+      - name: is_duplicate_active_contract
+        data_type: bool
+        description: >
+          true si ce contrat est un CDI ouvert en doublon : même membership_id ET même
+          location_id avec au moins un autre CDI sans date de fin. Concerne 69 couples
+          membership × location. Utilisé pour alerter sans bloquer la facturation
+          (le COUNT DISTINCT membership_id absorbe le doublon).
+
+  - name: int_fct_weekly_planifications
+    description: >
+      Table de faits centrale pour la facturation.
+      Grain : 1 ligne par (semaine, contrat) ayant eu au moins 1 shift OU repos.
+      La semaine commence le lundi à 00:00 UTC (DATE_TRUNC WEEK(MONDAY)).
+
+      Traitements appliqués :
+        - INNER JOIN sur int_dim_contracts : exclut ~296k shifts et ~123k rests dont le
+          user_contract_id est absent de user_contracts (contrats supprimés de la source).
+        - Déduplication : 1 seule ligne par (week_start, user_contract_id) quel que soit
+          le nombre de planifications dans la semaine.
+        - La location de facturation est celle du CONTRAT (location_id de int_dim_contracts),
+          pas la location où le shift a physiquement eu lieu.
+    columns:
+      - name: week_start
+        data_type: date
+        description: 'Date du lundi de la semaine (UTC)'
+        tests:
+          - not_null
+
+      - name: user_contract_id
+        data_type: int64
+        description: 'Contrat ayant eu au moins une planification cette semaine'
+        tests:
+          - not_null
+
+      - name: membership_id
+        data_type: int64
+        description: 'Personne physique derrière le contrat'
+
+      - name: location_id
+        data_type: int64
+        description: 'Location de rattachement du contrat (lieu de facturation)'
+        tests:
+          - not_null
+
+      - name: account_id
+        data_type: int64
+        description: 'Compte auquel appartient la planification'
+        tests:
+          - not_null
+
+      - name: is_duplicate_active_contract
+        data_type: bool
+        description: 'Propagé depuis int_dim_contracts pour traçabilité des doublons'
