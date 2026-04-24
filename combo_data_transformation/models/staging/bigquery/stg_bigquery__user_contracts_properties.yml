@@ -1,0 +1,54 @@
+version: 2
+
+models:
+  - name: stg_bigquery__user_contracts
+    description: 'Staging model for employment contracts linking employees to their home location'
+    columns:
+      - name: user_contract_id
+        data_type: int64
+        description: 'Unique identifier of the contract linking an employee to a home location'
+        tests:
+          - unique
+          - not_null
+
+      - name: membership_id
+        data_type: int64
+        description: 'Reference to the employee membership'
+        tests:
+          - relationships:
+              to: ref('stg_bigquery__memberships')
+              field: membership_id
+
+      - name: location_id
+        data_type: int64
+        description: 'Home location of the employee for this contract'
+        tests:
+          - relationships:
+              to: ref('stg_bigquery__locations')
+              field: location_id
+
+      - name: account_id
+        data_type: int64
+        description: 'Account this contract belongs to'
+        tests:
+          - relationships:
+              to: ref('stg_bigquery__accounts')
+              field: account_id
+
+      - name: contract_start_date
+        data_type: date
+        description: 'Contract start date (normalized from STRING source via normalize_date macro)'
+        tests:
+          - not_null
+
+      - name: contract_end_date
+        data_type: date
+        description: 'Contract end date (null for open-ended CDI contracts)'
+
+      - name: contract_type
+        data_type: string
+        description: 'Type of contract (CDI, CDD, seasonal, etc.)'
+
+      - name: contract_time
+        data_type: string
+        description: 'Weekly planned working hours defined in the contract'

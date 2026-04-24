@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: mart__billing_metrics
+    description: >
+      Métriques de facturation hebdomadaires par compte.
+      Grain : 1 ligne par (semaine, compte).
+      Location facturable = non archivée, présente toutes les semaines.
+      Employé facturable = a eu au moins 1 planification dans la semaine sur sa location de contrat.
+      COUNT DISTINCT membership_id pour éviter le double-comptage des CDI en doublon.
+    columns:
+      - name: week_start
+        data_type: date
+        description: 'Date du lundi de la semaine (UTC)'
+        tests:
+          - not_null
+
+      - name: account_id
+        data_type: int64
+        description: 'Identifiant unique du compte client'
+        tests:
+          - not_null
+
+      - name: account_name
+        data_type: string
+        description: 'Nom du compte client'
+
+      - name: billable_location_count
+        data_type: int64
+        description: 'Nombre de locations non archivées pour ce compte cette semaine'
+
+      - name: billable_employee_count
+        data_type: int64
+        description: 'Nombre d employés distincts (membership_id) ayant eu au moins 1 planification cette semaine sur une location non archivée'

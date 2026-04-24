@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: int_dim__accounts
+    description: 'Dimension des comptes clients (accounts). Passthrough depuis staging.'
+    columns:
+      - name: account_id
+        data_type: int64
+        description: 'Identifiant unique du compte client'
+        tests:
+          - unique
+          - not_null
+
+      - name: account_name
+        data_type: string
+        description: 'Nom du compte client'
+
+      - name: account_created_at
+        data_type: timestamp
+        description: 'Date de création du compte'
+
+      - name: time_zone
+        data_type: string
+        description: 'Fuseau horaire du compte'
+
+      - name: account_country
+        data_type: string
+        description: 'Pays du compte'

@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: int_fct__weekly_planned_shifts
+    description: >
+      Table de faits des shifts hebdomadaires par contrat.
+      Grain : 1 ligne par (semaine, contrat) ayant eu au moins 1 shift.
+      La semaine commence le lundi à 00:00 UTC.
+      INNER JOIN sur int_dim__contracts exclut les shifts dont le contrat est absent de la source.
+      La location de facturation est celle du contrat, pas la location physique du shift.
+    columns:
+      - name: week_start
+        data_type: date
+        description: 'Date du lundi de la semaine (UTC)'
+        tests:
+          - not_null
+
+      - name: user_contract_id
+        data_type: int64
+        description: 'Contrat ayant eu au moins un shift cette semaine'
+        tests:
+          - not_null
+
+      - name: membership_id
+        data_type: int64
+        description: 'Personne physique derrière le contrat'
+
+      - name: location_id
+        data_type: int64
+        description: 'Location de rattachement du contrat (lieu de facturation)'
+        tests:
+          - not_null
+
+      - name: account_id
+        data_type: int64
+        description: 'Compte auquel appartient le shift'
+        tests:
+          - not_null
+
+      - name: is_duplicate_active_contract
+        data_type: bool
+        description: 'Propagé depuis int_dim__contracts pour traçabilité des doublons'

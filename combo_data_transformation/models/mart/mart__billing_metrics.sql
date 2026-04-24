@@ -1,8 +1,26 @@
 with
 
-weekly_planifications as (select * from {{ ref('int_fct__weekly_planifications') }}),
+weekly_shifts as (select * from {{ ref('int_fct__weekly_planned_shifts') }}),
+weekly_rests as (select * from {{ ref('int_fct__weekly_planned_rests') }}),
 locations as (select * from {{ ref('int_dim__locations') }}),
 accounts as (select * from {{ ref('int_dim__accounts') }}),
+
+planifications_unioned as (
+    select * from weekly_shifts
+    union all
+    select * from weekly_rests
+),
+
+weekly_planifications as (
+    select distinct
+        week_start,
+        user_contract_id,
+        membership_id,
+        location_id,
+        account_id,
+        is_duplicate_active_contract
+    from planifications_unioned
+),
 
 all_weeks as (
     select distinct week_start

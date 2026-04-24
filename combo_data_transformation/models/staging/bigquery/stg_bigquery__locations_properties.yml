@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: stg_bigquery__locations
+    description: 'Staging model for establishments (locations) belonging to accounts. A billable location is one that is not archived.'
+    columns:
+      - name: location_id
+        data_type: int64
+        description: 'Unique identifier of the location (establishment)'
+        tests:
+          - unique
+          - not_null
+
+      - name: location_name
+        data_type: string
+        description: 'Name of the establishment'
+
+      - name: account_id
+        data_type: int64
+        description: 'Account this location belongs to'
+        tests:
+          - relationships:
+              to: ref('stg_bigquery__accounts')
+              field: account_id
+
+      - name: is_archived
+        data_type: bool
+        description: 'true if the location is archived (non-billable). Normalized from 10 STRING formats via CASE LOWER + IFNULL.'
+
+      - name: location_city
+        data_type: string
+        description: 'City of the location'
+
+      - name: location_zipcode
+        data_type: string
+        description: 'Zip code of the location'
+
+      - name: location_country
+        data_type: string
+        description: 'Country of the location'

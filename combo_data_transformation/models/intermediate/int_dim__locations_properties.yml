@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: int_dim__locations
+    description: >
+      Dimension des établissements (locations) enrichie.
+      La normalisation de archived (10 formats STRING dans la source) est faite
+      en staging via CASE LOWER(archived) + IFNULL. Une location est facturable si is_archived = false.
+    columns:
+      - name: location_id
+        data_type: int64
+        description: 'Identifiant unique de la location'
+        tests:
+          - unique
+          - not_null
+
+      - name: location_name
+        data_type: string
+        description: 'Nom de l établissement'
+
+      - name: account_id
+        data_type: int64
+        description: 'Compte auquel appartient la location'
+        tests:
+          - not_null
+
+      - name: is_archived
+        data_type: bool
+        description: 'true si la location est archivée (non facturable). Normalisé depuis 10 formats STRING en staging.'
+        tests:
+          - not_null
+
+      - name: location_city
+        data_type: string
+        description: 'Ville de la location'
+
+      - name: location_zipcode
+        data_type: string
+        description: 'Code postal de la location'
+
+      - name: location_country
+        data_type: string
+        description: 'Pays de la location'

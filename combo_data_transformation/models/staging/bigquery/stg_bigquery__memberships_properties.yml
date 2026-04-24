@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: stg_bigquery__memberships
+    description: 'Staging model for employees (memberships) within accounts'
+    columns:
+      - name: membership_id
+        data_type: int64
+        description: 'Unique identifier of the membership (employee within an account)'
+        tests:
+          - unique
+          - not_null
+
+      - name: user_id
+        data_type: int64
+        description: 'Unique identifier of the user across all accounts'
+
+      - name: account_id
+        data_type: int64
+        description: 'Account this membership belongs to'
+        tests:
+          - relationships:
+              to: ref('stg_bigquery__accounts')
+              field: account_id
+
+      - name: is_active_membership
+        data_type: bool
+        description: 'true if the membership is currently active. Normalized from 10 STRING formats via CASE LOWER.'
+
+      - name: membership_role
+        data_type: string
+        description: 'Role of the member within the account (employee, manager, owner)'
+
+      - name: firstname
+        data_type: string
+        description: 'First name of the employee'
+
+      - name: lastname
+        data_type: string
+        description: 'Last name of the employee'
