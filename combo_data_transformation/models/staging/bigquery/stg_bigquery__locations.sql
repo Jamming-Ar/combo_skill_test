@@ -5,7 +5,15 @@ renamed as (
         id as location_id,
         name as location_name,
         account_id,
-        archived,
+        case lower(archived)
+            when 'true'  then true
+            when 'yes'   then true
+            when '1'     then true
+            when 'false' then false
+            when 'no'    then false
+            when '0'     then false
+            else null
+        end as archived,
         city as location_city,
         zipcode as location_zipcode,
         country as location_country
