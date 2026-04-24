@@ -40,3 +40,7 @@ models:
       - name: is_duplicate_active_contract
         data_type: bool
         description: 'Propagé depuis int_dim__contracts pour traçabilité des doublons'
+
+      - name: planned_shift_count
+        data_type: int64
+        description: 'Indicateur de présence (toujours 1) — permet les agrégations SUM dans le mart'

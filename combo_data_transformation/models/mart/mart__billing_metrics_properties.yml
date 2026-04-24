@@ -32,3 +32,11 @@ models:
       - name: billable_employee_count
         data_type: int64
         description: 'Nombre d employés distincts (membership_id) ayant eu au moins 1 planification cette semaine sur une location non archivée'
+
+      - name: planned_shift_count
+        data_type: int64
+        description: 'Nombre de contrats ayant eu au moins 1 shift cette semaine sur une location non archivée'
+
+      - name: planned_rest_count
+        data_type: int64
+        description: 'Nombre de contrats ayant eu au moins 1 repos cette semaine sur une location non archivée'
