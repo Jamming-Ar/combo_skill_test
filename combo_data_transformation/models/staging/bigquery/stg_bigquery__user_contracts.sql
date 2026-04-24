@@ -6,8 +6,10 @@ renamed as (
         membership_id,
         location_id,
         account_id,
-        contract_start,
-        contract_end,
+        {{ normalize_date('contract_start') }} 
+            as contract_start,
+        {{ normalize_date('contract_end') }} 
+            as contract_end,
         contract_type,
         contract_time
     from {{ source('sources', 'user_contracts') }}
