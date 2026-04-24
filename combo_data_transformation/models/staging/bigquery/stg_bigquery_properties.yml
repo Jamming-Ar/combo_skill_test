@@ -139,6 +139,8 @@ models:
       - name: contract_start
         data_type: string
         description: 'Contract start date'
+        tests:
+          - not_null
 
       - name: contract_end
         data_type: date

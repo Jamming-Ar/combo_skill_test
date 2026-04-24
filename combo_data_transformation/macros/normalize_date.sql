@@ -1,10 +1,8 @@
 {% macro normalize_date(column_name) %}
-    coalesce(
-        safe.parse_date('%Y-%m-%d',  cast({{ column_name }} as string)),
-        safe.parse_date('%d/%m/%Y',  cast({{ column_name }} as string)),
-        safe.parse_date('%m/%d/%Y',  cast({{ column_name }} as string)),
-        safe.parse_date('%Y/%m/%d',  cast({{ column_name }} as string)),
-        safe.parse_date('%d-%m-%Y',  cast({{ column_name }} as string)),
-        safe.parse_date('%Y%m%d',    cast({{ column_name }} as string))
-    )
+    case
+        when {{ column_name }} like '__/__/____'
+            then parse_date('%d/%m/%Y', {{ column_name }})
+        else
+            parse_date('%Y-%m-%d', {{ column_name }})
+    end
 {% endmacro %}
