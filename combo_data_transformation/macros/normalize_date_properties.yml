@@ -1,0 +1,7 @@
+version: 2
+
+macros:
+  - name: normalize_date
+    description: >
+      Parses a date string column into a DATE type, handling two possible input formats:
+      DD/MM/YYYY (detected via pattern matching) and YYYY-MM-DD. Returns a BigQuery DATE value.
