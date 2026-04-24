@@ -17,7 +17,8 @@ select
     contracts.membership_id,
     contracts.location_id,
     contracts.account_id,
-    contracts.is_duplicate_active_contract
+    contracts.is_duplicate_active_contract,
+    1 as planned_shift_count
 from shifts_weekly
 inner join contracts
     on shifts_weekly.user_contract_id = contracts.user_contract_id

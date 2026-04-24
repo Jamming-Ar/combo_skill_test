@@ -6,9 +6,11 @@ locations as (select * from {{ ref('int_dim__locations') }}),
 accounts as (select * from {{ ref('int_dim__accounts') }}),
 
 planifications_unioned as (
-    select * from weekly_shifts
+    select week_start, user_contract_id, membership_id, location_id, account_id
+    from weekly_shifts
     union all
-    select * from weekly_rests
+    select week_start, user_contract_id, membership_id, location_id, account_id
+    from weekly_rests
 ),
 
 weekly_planifications as (
@@ -17,8 +19,7 @@ weekly_planifications as (
         user_contract_id,
         membership_id,
         location_id,
-        account_id,
-        is_duplicate_active_contract
+        account_id
     from planifications_unioned
 ),
 
@@ -63,6 +64,30 @@ billable_employees_per_account as (
         on weekly_planifications.location_id = locations.location_id
         and locations.is_archived = false
     group by weekly_planifications.week_start, weekly_planifications.account_id
+),
+
+planned_shifts_per_account as (
+    select
+        weekly_shifts.week_start,
+        weekly_shifts.account_id,
+        sum(weekly_shifts.planned_shift_count) as planned_shift_count
+    from weekly_shifts
+    inner join locations
+        on weekly_shifts.location_id = locations.location_id
+        and locations.is_archived = false
+    group by weekly_shifts.week_start, weekly_shifts.account_id
+),
+
+planned_rests_per_account as (
+    select
+        weekly_rests.week_start,
+        weekly_rests.account_id,
+        sum(weekly_rests.planned_rest_count) as planned_rest_count
+    from weekly_rests
+    inner join locations
+        on weekly_rests.location_id = locations.location_id
+        and locations.is_archived = false
+    group by weekly_rests.week_start, weekly_rests.account_id
 )
 
 select
@@ -70,11 +95,19 @@ select
     billable_locations_per_account.account_id,
     accounts.account_name,
     billable_locations_per_account.billable_location_count,
-    coalesce(billable_employees_per_account.billable_employee_count, 0) as billable_employee_count
+    coalesce(billable_employees_per_account.billable_employee_count, 0) as billable_employee_count,
+    coalesce(planned_shifts_per_account.planned_shift_count, 0) as planned_shift_count,
+    coalesce(planned_rests_per_account.planned_rest_count, 0) as planned_rest_count
 from billable_locations_per_account
 left join billable_employees_per_account
     on billable_locations_per_account.week_start = billable_employees_per_account.week_start
     and billable_locations_per_account.account_id = billable_employees_per_account.account_id
+left join planned_shifts_per_account
+    on billable_locations_per_account.week_start = planned_shifts_per_account.week_start
+    and billable_locations_per_account.account_id = planned_shifts_per_account.account_id
+left join planned_rests_per_account
+    on billable_locations_per_account.week_start = planned_rests_per_account.week_start
+    and billable_locations_per_account.account_id = planned_rests_per_account.account_id
 left join accounts
     on billable_locations_per_account.account_id = accounts.account_id
 order by billable_locations_per_account.week_start, billable_locations_per_account.account_id
