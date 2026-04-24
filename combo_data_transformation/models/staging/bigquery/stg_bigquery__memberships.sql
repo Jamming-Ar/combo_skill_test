@@ -5,7 +5,15 @@ renamed as (
         id as membership_id,
         user_id,
         account_id,
-        active as is_active_membership,
+        case lower(active)
+            when 'true'  then true
+            when 'yes'   then true
+            when '1'     then true
+            when 'false' then false
+            when 'no'    then false
+            when '0'     then false
+            else null
+        end as active,
         role as membership_role,
         firstname,
         lastname
@@ -16,7 +24,7 @@ select
     membership_id,
     user_id,
     account_id,
-    is_active_membership,
+    active,
     membership_role,
     firstname,
     lastname
