@@ -6,6 +6,9 @@ models:
       - name: account_id
         data_type: int64
         description: 'Unique identifier of the client company (account)'
+        tests:
+          - unique
+          - not_null
 
       - name: account_name
         data_type: string
@@ -29,6 +32,9 @@ models:
       - name: location_id
         data_type: int64
         description: 'Unique identifier of the location (establishment)'
+        tests:
+          - unique
+          - not_null
 
       - name: location_name
         data_type: string
@@ -64,6 +70,9 @@ models:
       - name: membership_id
         data_type: int64
         description: 'Unique identifier of the membership (employee within an account)'
+        tests:
+          - unique
+          - not_null
 
       - name: user_id
         data_type: int64
@@ -99,6 +108,9 @@ models:
       - name: user_contract_id
         data_type: int64
         description: 'Unique identifier of the contract linking an employee to a home location'
+        tests:
+          - unique
+          - not_null
 
       - name: membership_id
         data_type: int64
@@ -146,6 +158,9 @@ models:
       - name: shift_id
         data_type: int64
         description: 'Unique identifier of the shift'
+        tests:
+          - unique
+          - not_null
 
       - name: user_contract_id
         data_type: int64
@@ -181,6 +196,9 @@ models:
       - name: rest_id
         data_type: int64
         description: 'Unique identifier of the rest period'
+        tests:
+          - unique
+          - not_null
 
       - name: user_contract_id
         data_type: int64
