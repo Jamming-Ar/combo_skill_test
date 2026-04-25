@@ -6,18 +6,18 @@ models:
     columns:
       - name: membership_id
         data_type: int64
-        description: 'Unique identifier of the membership (employee within an account)'
+        description: 'Unique identifier of the membership'
         tests:
           - unique
           - not_null
 
       - name: user_id
         data_type: int64
-        description: 'Unique identifier of the user across all accounts'
+        description: 'Unique identifier of the user'
 
       - name: account_id
         data_type: int64
-        description: 'Account this membership belongs to'
+        description: 'Unique identifier of the client company (account)'
         tests:
           - relationships:
               to: ref('stg_bigquery__accounts')
@@ -25,7 +25,7 @@ models:
 
       - name: is_active_membership
         data_type: bool
-        description: 'true if the membership is currently active. Normalized from 10 STRING formats via CASE LOWER.'
+        description: 'true if the membership is currently active'
 
       - name: membership_role
         data_type: string

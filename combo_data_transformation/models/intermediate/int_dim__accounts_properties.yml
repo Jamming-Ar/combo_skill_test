@@ -6,23 +6,23 @@ models:
     columns:
       - name: account_id
         data_type: int64
-        description: 'Identifiant unique du compte client'
+        description: 'Unique identifier of the client company (account)'
         tests:
           - unique
           - not_null
 
       - name: account_name
         data_type: string
-        description: 'Nom du compte client'
+        description: 'Name of the client company'
 
       - name: account_created_at
         data_type: timestamp
-        description: 'Date de création du compte'
+        description: 'Timestamp when the account was created'
 
       - name: time_zone
         data_type: string
-        description: 'Fuseau horaire du compte'
+        description: 'Timezone of the record'
 
       - name: account_country
         data_type: string
-        description: 'Pays du compte'
+        description: 'Country where the account is registered'

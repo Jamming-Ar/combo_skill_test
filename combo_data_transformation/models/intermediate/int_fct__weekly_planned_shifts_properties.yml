@@ -17,30 +17,34 @@ models:
 
       - name: user_contract_id
         data_type: int64
-        description: 'Contrat ayant eu au moins un shift cette semaine'
+        description: 'Unique identifier of the contract linking a membership (employee)'
         tests:
           - not_null
 
       - name: membership_id
         data_type: int64
-        description: 'Personne physique derrière le contrat'
+        description: 'Unique identifier of the membership'
 
       - name: location_id
         data_type: int64
-        description: 'Location de rattachement du contrat (lieu de facturation)'
+        description: 'Unique identifier of the location'
         tests:
           - not_null
 
       - name: account_id
         data_type: int64
-        description: 'Compte auquel appartient le shift'
+        description: 'Unique identifier of the client company (account)'
         tests:
           - not_null
 
       - name: is_duplicate_active_contract
         data_type: bool
-        description: 'Propagé depuis int_dim__contracts pour traçabilité des doublons'
+        description: >
+          true si ce contrat est un CDI ouvert en doublon : même membership_id ET même
+          location_id avec au moins un autre CDI sans date de fin.
+          Utilisé pour alerter sans bloquer la facturation (COUNT DISTINCT membership_id absorbe le doublon)
+
 
       - name: planned_shift_count
         data_type: int64
-        description: 'Indicateur de présence (toujours 1) — permet les agrégations SUM dans le mart'
+        description: 'Number of shift planned'

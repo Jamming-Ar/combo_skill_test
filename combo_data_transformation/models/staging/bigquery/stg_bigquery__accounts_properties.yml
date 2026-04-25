@@ -21,7 +21,7 @@ models:
 
       - name: time_zone
         data_type: string
-        description: 'Timezone of the account (e.g. Europe/Paris)'
+        description: 'Timezone of the record'
 
       - name: account_country
         data_type: string

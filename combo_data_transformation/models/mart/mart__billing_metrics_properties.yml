@@ -17,13 +17,13 @@ models:
 
       - name: account_id
         data_type: int64
-        description: 'Identifiant unique du compte client'
+        description: 'Unique identifier of the client company (account)'
         tests:
           - not_null
 
       - name: account_name
         data_type: string
-        description: 'Nom du compte client'
+        description: 'Name of the client company'
 
       - name: billable_location_count
         data_type: int64
@@ -35,8 +35,8 @@ models:
 
       - name: planned_shift_count
         data_type: int64
-        description: 'Nombre de contrats ayant eu au moins 1 shift cette semaine sur une location non archivée'
+        description: 'Number of shift planned'
 
       - name: planned_rest_count
         data_type: int64
-        description: 'Nombre de contrats ayant eu au moins 1 repos cette semaine sur une location non archivée'
+        description: 'Number of rest planned'

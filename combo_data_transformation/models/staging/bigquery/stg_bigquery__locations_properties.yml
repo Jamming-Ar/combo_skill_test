@@ -6,7 +6,7 @@ models:
     columns:
       - name: location_id
         data_type: int64
-        description: 'Unique identifier of the location (establishment)'
+        description: 'Unique identifier of the location'
         tests:
           - unique
           - not_null
@@ -17,7 +17,7 @@ models:
 
       - name: account_id
         data_type: int64
-        description: 'Account this location belongs to'
+        description: 'Unique identifier of the client company (account)'
         tests:
           - relationships:
               to: ref('stg_bigquery__accounts')
@@ -25,7 +25,7 @@ models:
 
       - name: is_archived
         data_type: bool
-        description: 'true if the location is archived (non-billable). Normalized from 10 STRING formats via CASE LOWER + IFNULL.'
+        description: 'true if the location is archived (non-billable)'
 
       - name: location_city
         data_type: string

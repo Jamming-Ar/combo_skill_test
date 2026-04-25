@@ -3,23 +3,24 @@ dictionary:
   - name: account_country
     description: 'Country where the account is registered'
     models:
+      - int_dim__accounts
       - stg_bigquery__accounts
 
   - name: account_created_at
     description: 'Timestamp when the account was created'
     models:
+      - int_dim__accounts
       - stg_bigquery__accounts
 
   - name: account_id
-    description: ''
-    description_versions:
-      - 'Account this contract belongs to'
-      - 'Account this location belongs to'
-      - 'Account this membership belongs to'
-      - 'Account this rest period belongs to'
-      - 'Account this shift belongs to'
-      - 'Unique identifier of the client company (account)'
+    description: 'Unique identifier of the client company (account)'
     models:
+      - int_dim__accounts
+      - int_dim__contracts
+      - int_dim__locations
+      - int_fct__weekly_planned_rests
+      - int_fct__weekly_planned_shifts
+      - mart__billing_metrics
       - stg_bigquery__accounts
       - stg_bigquery__locations
       - stg_bigquery__memberships
@@ -30,83 +31,118 @@ dictionary:
   - name: account_name
     description: 'Name of the client company'
     models:
+      - int_dim__accounts
+      - mart__billing_metrics
       - stg_bigquery__accounts
 
-  - name: archived
-    description: 'Whether the location is archived (non-active locations are not billable)'
+  - name: billable_employee_count
+    description: 'Nombre d employés distincts (membership_id) ayant eu au moins 1 planification cette semaine sur une location non archivée'
     models:
-      - stg_bigquery__locations
+      - mart__billing_metrics
 
-  - name: contract_end
+  - name: billable_location_count
+    description: 'Nombre de locations non archivées pour ce compte cette semaine'
+    models:
+      - mart__billing_metrics
+
+  - name: contract_end_date
     description: 'Contract end date (null for open-ended CDI contracts)'
     models:
+      - int_dim__contracts
       - stg_bigquery__user_contracts
 
-  - name: contract_start
+  - name: contract_start_date
     description: 'Contract start date'
     models:
+      - int_dim__contracts
       - stg_bigquery__user_contracts
 
   - name: contract_time
     description: 'Weekly planned working hours defined in the contract'
     models:
+      - int_dim__contracts
       - stg_bigquery__user_contracts
 
   - name: contract_type
     description: 'Type of contract (CDI, CDD, seasonal, etc.)'
     models:
+      - int_dim__contracts
       - stg_bigquery__user_contracts
 
   - name: firstname
     description: 'First name of the employee'
     models:
+      - int_dim__contracts
       - stg_bigquery__memberships
 
   - name: is_active_membership
-    description: 'Whether the membership is currently active'
+    description: 'true if the membership is currently active'
     models:
+      - int_dim__contracts
       - stg_bigquery__memberships
+
+  - name: is_archived
+    description: 'true if the location is archived (non-billable)'
+    models:
+      - int_dim__locations
+      - stg_bigquery__locations
+
+  - name: is_duplicate_active_contract
+    description: >
+      true si ce contrat est un CDI ouvert en doublon : même membership_id ET même
+      location_id avec au moins un autre CDI sans date de fin.
+      Utilisé pour alerter sans bloquer la facturation (COUNT DISTINCT membership_id absorbe le doublon)
+    models:
+      - int_dim__contracts
+      - int_fct__weekly_planned_rests
+      - int_fct__weekly_planned_shifts
 
   - name: lastname
     description: 'Last name of the employee'
     models:
+      - int_dim__contracts
       - stg_bigquery__memberships
 
   - name: location_city
     description: 'City of the location'
     models:
+      - int_dim__locations
       - stg_bigquery__locations
 
   - name: location_country
     description: 'Country of the location'
     models:
+      - int_dim__locations
       - stg_bigquery__locations
 
   - name: location_id
-    description: ''
-    description_versions:
-      - 'Home location of the employee for this contract'
-      - 'Unique identifier of the location (establishment)'
+    description: 'Unique identifier of the location'
     models:
+      - int_dim__contracts
+      - int_dim__locations
+      - int_fct__weekly_planned_rests
+      - int_fct__weekly_planned_shifts
       - stg_bigquery__locations
       - stg_bigquery__user_contracts
 
   - name: location_name
     description: 'Name of the establishment'
     models:
+      - int_dim__locations
       - stg_bigquery__locations
 
   - name: location_zipcode
     description: 'Zip code of the location'
     models:
+      - int_dim__locations
       - stg_bigquery__locations
 
   - name: membership_id
-    description: ''
-    description_versions:
-      - 'Reference to the employee membership'
-      - 'Unique identifier of the membership (employee within an account)'
+    description: 'Unique identifier of the membership'
     models:
+      - int_dim__contracts
+      - int_fct__weekly_planned_rests
+      - int_fct__weekly_planned_shifts
       - stg_bigquery__memberships
       - stg_bigquery__user_contracts
 
@@ -119,6 +155,18 @@ dictionary:
     description: 'Type of planning for the shift (e.g. work, training)'
     models:
       - stg_bigquery__shifts
+
+  - name: planned_rest_count
+    description: 'Number of rest planned'
+    models:
+      - int_fct__weekly_planned_rests
+      - mart__billing_metrics
+
+  - name: planned_shift_count
+    description: 'Number of shift planned'
+    models:
+      - int_fct__weekly_planned_shifts
+      - mart__billing_metrics
 
   - name: rest_ends_at
     description: 'End datetime of the rest period (UTC)'
@@ -156,22 +204,30 @@ dictionary:
       - stg_bigquery__shifts
 
   - name: time_zone
-    description: 'Timezone of the account (e.g. Europe/Paris)'
+    description: 'Timezone of the record'
     models:
+      - int_dim__accounts
       - stg_bigquery__accounts
 
   - name: user_contract_id
-    description: ''
-    description_versions:
-      - 'Contract of the employee on rest'
-      - 'Contract of the employee scheduled for this shift'
-      - 'Unique identifier of the contract linking an employee to a home location'
+    description: 'Unique identifier of the contract linking a membership (employee)'
     models:
+      - int_dim__contracts
+      - int_fct__weekly_planned_rests
+      - int_fct__weekly_planned_shifts
       - stg_bigquery__rests
       - stg_bigquery__shifts
       - stg_bigquery__user_contracts
 
   - name: user_id
-    description: 'Unique identifier of the user across all accounts'
+    description: 'Unique identifier of the user'
     models:
+      - int_dim__contracts
       - stg_bigquery__memberships
+
+  - name: week_start
+    description: 'Date du lundi de la semaine (UTC)'
+    models:
+      - int_fct__weekly_planned_rests
+      - int_fct__weekly_planned_shifts
+      - mart__billing_metrics

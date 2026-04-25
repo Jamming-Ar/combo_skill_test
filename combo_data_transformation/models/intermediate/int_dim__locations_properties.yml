@@ -9,35 +9,35 @@ models:
     columns:
       - name: location_id
         data_type: int64
-        description: 'Identifiant unique de la location'
+        description: 'Unique identifier of the location'
         tests:
           - unique
           - not_null
 
       - name: location_name
         data_type: string
-        description: 'Nom de l établissement'
+        description: 'Name of the establishment'
 
       - name: account_id
         data_type: int64
-        description: 'Compte auquel appartient la location'
+        description: 'Unique identifier of the client company (account)'
         tests:
           - not_null
 
       - name: is_archived
         data_type: bool
-        description: 'true si la location est archivée (non facturable). Normalisé depuis 10 formats STRING en staging.'
+        description: 'true if the location is archived (non-billable)'
         tests:
           - not_null
 
       - name: location_city
         data_type: string
-        description: 'Ville de la location'
+        description: 'City of the location'
 
       - name: location_zipcode
         data_type: string
-        description: 'Code postal de la location'
+        description: 'Zip code of the location'
 
       - name: location_country
         data_type: string
-        description: 'Pays de la location'
+        description: 'Country of the location'
