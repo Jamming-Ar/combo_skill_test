@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: int_fct__weekly_billable_employee
+    description: >
+      Table de faits des employés facturables par établissement par semaine.
+      Grain : 1 ligne par (semaine, location).
+      Inclut toutes les locations non archivées, même celles sans aucun employé planifié (billable_employee_count = 0).
+      Utilisé par mart__weekly_revenue pour calculer le prix de chaque établissement via la macro calculate_location_monthly_price.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - week_start
+            - location_id
+    columns:
+      - name: week_start
+        data_type: date
+        description: 'Date du lundi de la semaine (UTC)'
+        tests:
+          - not_null
+
+      - name: location_id
+        data_type: int64
+        description: 'Identifiant unique de la location'
+        tests:
+          - not_null
+
+      - name: account_id
+        data_type: int64
+        description: 'Compte auquel appartient la location'
+        tests:
+          - not_null
+
+      - name: billable_employee_count
+        data_type: int64
+        description: 'Nombre d employés distincts (membership_id) planifiés cette semaine sur cet établissement. 0 si aucune planification.'
