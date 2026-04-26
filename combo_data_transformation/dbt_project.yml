@@ -40,3 +40,8 @@ models:
     mart:
       +materialized: table
       +schema: mart
+
+snapshots:
+  combo_data_transformation:
+    +strategy: check
+    +schema: snapshots

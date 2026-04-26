@@ -2,7 +2,7 @@ with
 
 weekly_shifts as (select * from {{ ref('int_fct__weekly_planned_shifts') }}),
 weekly_rests as (select * from {{ ref('int_fct__weekly_planned_rests') }}),
-locations as (select * from {{ ref('int_dim__locations') }}),
+locations_history as (select * from {{ ref('int_dim__locations_history') }}),
 accounts as (select * from {{ ref('int_dim__accounts') }}),
 
 planifications_unioned as (
@@ -28,21 +28,15 @@ all_weeks as (
     from weekly_planifications
 ),
 
-non_archived_locations as (
-    select
-        location_id,
-        account_id
-    from locations
-    where is_archived = false
-),
-
 location_weeks as (
     select
         all_weeks.week_start,
-        non_archived_locations.location_id,
-        non_archived_locations.account_id
+        locations_history.location_id,
+        locations_history.account_id
     from all_weeks
-    cross join non_archived_locations
+    inner join locations_history
+        on (locations_history.dbt_valid_to is null or all_weeks.week_start < locations_history.dbt_valid_to)
+        and locations_history.is_archived = false
 ),
 
 billable_locations_per_account as (
@@ -60,9 +54,10 @@ billable_employees_per_account as (
         weekly_planifications.account_id,
         count(distinct weekly_planifications.membership_id) as billable_employee_count
     from weekly_planifications
-    inner join locations
-        on weekly_planifications.location_id = locations.location_id
-        and locations.is_archived = false
+    inner join locations_history
+        on weekly_planifications.location_id = locations_history.location_id
+        and (locations_history.dbt_valid_to is null or weekly_planifications.week_start < locations_history.dbt_valid_to)
+        and locations_history.is_archived = false
     group by weekly_planifications.week_start, weekly_planifications.account_id
 ),
 
@@ -72,9 +67,10 @@ planned_shifts_per_account as (
         weekly_shifts.account_id,
         sum(weekly_shifts.planned_shift_count) as planned_shift_count
     from weekly_shifts
-    inner join locations
-        on weekly_shifts.location_id = locations.location_id
-        and locations.is_archived = false
+    inner join locations_history
+        on weekly_shifts.location_id = locations_history.location_id
+        and (locations_history.dbt_valid_to is null or weekly_shifts.week_start < locations_history.dbt_valid_to)
+        and locations_history.is_archived = false
     group by weekly_shifts.week_start, weekly_shifts.account_id
 ),
 
@@ -84,9 +80,10 @@ planned_rests_per_account as (
         weekly_rests.account_id,
         sum(weekly_rests.planned_rest_count) as planned_rest_count
     from weekly_rests
-    inner join locations
-        on weekly_rests.location_id = locations.location_id
-        and locations.is_archived = false
+    inner join locations_history
+        on weekly_rests.location_id = locations_history.location_id
+        and (locations_history.dbt_valid_to is null or weekly_rests.week_start < locations_history.dbt_valid_to)
+        and locations_history.is_archived = false
     group by weekly_rests.week_start, weekly_rests.account_id
 )
 

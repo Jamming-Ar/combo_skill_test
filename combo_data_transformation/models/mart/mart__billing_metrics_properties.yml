@@ -5,9 +5,8 @@ models:
     description: >
       Métriques de facturation hebdomadaires par compte.
       Grain : 1 ligne par (semaine, compte).
-      Location facturable = non archivée, présente toutes les semaines.
-      Employé facturable = a eu au moins 1 planification dans la semaine sur sa location de contrat.
-      COUNT DISTINCT membership_id pour éviter le double-comptage des CDI en doublon.
+      Location facturable = non archivée pendant cette semaine 
+      Employé facturable = a eu au moins 1 planification (shift ou repos) dans la semaine sur sa location de contrat non archivée.
     columns:
       - name: week_start
         data_type: date

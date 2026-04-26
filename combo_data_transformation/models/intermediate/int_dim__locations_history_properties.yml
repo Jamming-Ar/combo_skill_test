@@ -1,0 +1,54 @@
+version: 2
+
+models:
+  - name: int_dim__locations_history
+    description: >
+      Historique des états de la dimension locations.
+      Exposé depuis le snapshot snapshot__locations qui traque les changements de is_archived.
+      Grain : 1 ligne par (location, période de validité).
+      dbt_valid_from et dbt_valid_to délimitent la période pendant laquelle is_archived avait cette valeur.
+      dbt_valid_to = null indique l'état courant
+    columns:
+      - name: location_id
+        data_type: int64
+        description: 'Identifiant unique de la location'
+        tests:
+          - not_null
+
+      - name: location_name
+        data_type: string
+        description: 'Nom de l établissement'
+
+      - name: account_id
+        data_type: int64
+        description: 'Compte auquel appartient la location'
+        tests:
+          - not_null
+
+      - name: is_archived
+        data_type: bool
+        description: 'Valeur de is_archived pendant cette période de validité'
+        tests:
+          - not_null
+
+      - name: location_city
+        data_type: string
+        description: 'Ville de la location'
+
+      - name: location_zipcode
+        data_type: string
+        description: 'Code postal de la location'
+
+      - name: location_country
+        data_type: string
+        description: 'Pays de la location'
+
+      - name: dbt_valid_from
+        data_type: date
+        description: 'Début de validité de cet état (inclus)'
+        tests:
+          - not_null
+
+      - name: dbt_valid_to
+        data_type: date
+        description: 'Fin de validité de cet état (exclus). NULL = état courant.'

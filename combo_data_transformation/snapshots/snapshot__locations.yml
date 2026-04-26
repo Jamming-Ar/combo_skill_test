@@ -1,0 +1,7 @@
+snapshots:
+  - name: snapshot__locations
+    relation: ref('stg_bigquery__locations')
+    config:
+      unique_key: location_id
+      check_cols:
+        - is_archived
