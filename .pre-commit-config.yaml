@@ -1,0 +1,25 @@
+default_stages: [pre-commit]
+
+repos:
+  - repo: local
+    hooks:
+      - id: sqlfluff-fix
+        name: Fix - SQL (SQLFluff)
+        entry: bash -c "cd combo_data_transformation && uv run sqlfluff fix models/"
+        language: system
+        pass_filenames: false
+        files: ^combo_data_transformation/models/.*\.sql$
+
+      - id: sqlfluff-lint
+        name: Lint - SQL (SQLFluff)
+        entry: bash -c "cd combo_data_transformation && uv run sqlfluff lint models/"
+        language: system
+        pass_filenames: false
+        files: ^combo_data_transformation/models/.*\.sql$
+
+      - id: prettier-yaml
+        name: Format - YAML (Prettier)
+        entry: bash -c "cd combo_data_transformation && npx --yes prettier --write '**/*.yml'"
+        language: system
+        pass_filenames: false
+        files: ^combo_data_transformation/.*\.yml$

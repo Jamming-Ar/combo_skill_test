@@ -11,4 +11,6 @@ dependencies = [
 [dependency-groups]
 dev = [
     "dbt-datadict>=0.4.0",
+    "pre-commit>=4.2.0",
+    "sqlfluff-templater-dbt>=4.1.0",
 ]
