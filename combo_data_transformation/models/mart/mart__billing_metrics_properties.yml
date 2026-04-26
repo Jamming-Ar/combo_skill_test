@@ -7,6 +7,13 @@ models:
       Grain : 1 ligne par (semaine, compte).
       Location facturable = non archivée pendant cette semaine 
       Employé facturable = a eu au moins 1 planification (shift ou repos) dans la semaine sur sa location de contrat non archivée.
+    
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - week_start
+            - account_id
+    
     columns:
       - name: week_start
         data_type: date

@@ -8,12 +8,14 @@ models:
       Grain : 1 ligne par (location, période de validité).
       dbt_valid_from et dbt_valid_to délimitent la période pendant laquelle is_archived avait cette valeur.
       dbt_valid_to = null indique l'état courant
+    
     columns:
       - name: location_id
         data_type: int64
         description: 'Identifiant unique de la location'
         tests:
           - not_null
+          - unique
 
       - name: location_name
         data_type: string

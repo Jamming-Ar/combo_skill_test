@@ -8,6 +8,13 @@ models:
       La semaine commence le lundi à 00:00 UTC.
       INNER JOIN sur int_dim__contracts exclut les repos dont le contrat est absent de la source.
       La location de facturation est celle du contrat, pas la location physique du repos.
+    
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - week_start
+            - user_contract_id    
+    
     columns:
       - name: week_start
         data_type: date

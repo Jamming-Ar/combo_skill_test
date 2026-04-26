@@ -7,11 +7,13 @@ models:
       Grain : 1 ligne par (semaine, location).
       Inclut toutes les locations non archivées, même celles sans aucun employé planifié (billable_employee_count = 0).
       Utilisé par mart__weekly_revenue pour calculer le prix de chaque établissement via la macro calculate_location_monthly_price.
+    
     tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
             - week_start
             - location_id
+    
     columns:
       - name: week_start
         data_type: date
