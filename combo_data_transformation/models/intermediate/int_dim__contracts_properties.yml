@@ -3,66 +3,68 @@ version: 2
 models:
   - name: int_dim__contracts
     description: >
-      Dimension des contrats enrichie avec les informations du membership (employé).
+      Dimension des contrats enrichie avec les informations du membership
+      (employé).
     columns:
       - name: user_contract_id
         data_type: int64
-        description: 'Unique identifier of the contract linking a membership (employee)'
+        description:
+          "Unique identifier of the contract linking a membership (employee)"
         tests:
           - unique
           - not_null
 
       - name: membership_id
         data_type: int64
-        description: 'Unique identifier of the membership'
+        description: "Unique identifier of the membership"
 
       - name: location_id
         data_type: int64
-        description: 'Unique identifier of the location'
+        description: "Unique identifier of the location"
         tests:
           - not_null
 
       - name: account_id
         data_type: int64
-        description: 'Unique identifier of the client company (account)'
+        description: "Unique identifier of the client company (account)"
         tests:
           - not_null
 
       - name: contract_start_date
         data_type: date
-        description: 'Contract start date'
+        description: "Contract start date"
 
       - name: contract_end_date
         data_type: date
-        description: 'Contract end date (null for open-ended CDI contracts)'
+        description: "Contract end date (null for open-ended CDI contracts)"
 
       - name: contract_type
         data_type: string
-        description: 'Type of contract (CDI, CDD, seasonal, etc.)'
+        description: "Type of contract (CDI, CDD, seasonal, etc.)"
 
       - name: contract_time
         data_type: string
-        description: 'Weekly planned working hours defined in the contract'
+        description: "Weekly planned working hours defined in the contract"
 
       - name: user_id
         data_type: int64
-        description: 'Unique identifier of the user'
+        description: "Unique identifier of the user"
 
       - name: firstname
         data_type: string
-        description: 'First name of the employee'
+        description: "First name of the employee"
 
       - name: lastname
         data_type: string
-        description: 'Last name of the employee'
+        description: "Last name of the employee"
 
       - name: is_active_membership
         data_type: bool
-        description: 'true if the membership is currently active'
+        description: "true if the membership is currently active"
 
       - name: is_duplicate_active_contract
         data_type: bool
         description: >
-          true si ce contrat est un CDI ouvert en doublon : même membership_id ET même
-          location_id avec au moins un autre CDI sans date de fin.
-          Utilisé pour alerter sans bloquer la facturation 
+          true si ce contrat est un CDI ouvert en doublon : même membership_id
+          ET même location_id avec au moins un autre CDI sans date de fin.
+          Utilisé pour alerter sans bloquer la facturation

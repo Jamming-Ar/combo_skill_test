@@ -3,6 +3,7 @@ version: 2
 macros:
   - name: generate_schema_name
     description: >
-      Overrides dbt's default schema naming logic. Returns the custom schema name as-is
-      (trimmed) when one is provided, otherwise falls back to the default target schema.
-      This prevents dbt from prepending the target schema name to custom schemas.
+      Overrides dbt's default schema naming logic. Returns the custom schema
+      name as-is (trimmed) when one is provided, otherwise falls back to the
+      default target schema. This prevents dbt from prepending the target schema
+      name to custom schemas.

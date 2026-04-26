@@ -2,18 +2,22 @@ version: 2
 
 models:
   - name: stg_bigquery__shifts
-    description: 'Staging model for planned work shifts assigned to employees. A billable employee is scheduled at least once per week (shift or rest) at their contract location.'
+    description:
+      "Staging model for planned work shifts assigned to employees. A billable
+      employee is scheduled at least once per week (shift or rest) at their
+      contract location."
     columns:
       - name: shift_id
         data_type: int64
-        description: 'Unique identifier of the shift'
+        description: "Unique identifier of the shift"
         tests:
           - unique
           - not_null
 
       - name: user_contract_id
         data_type: int64
-        description: 'Unique identifier of the contract linking a membership (employee)'
+        description:
+          "Unique identifier of the contract linking a membership (employee)"
         tests:
           - relationships:
               to: ref('stg_bigquery__user_contracts')
@@ -21,7 +25,7 @@ models:
 
       - name: account_id
         data_type: int64
-        description: 'Unique identifier of the client company (account)'
+        description: "Unique identifier of the client company (account)"
         tests:
           - relationships:
               to: ref('stg_bigquery__accounts')
@@ -29,12 +33,12 @@ models:
 
       - name: shift_starts_at
         data_type: timestamp
-        description: 'Planned start datetime of the shift (UTC)'
+        description: "Planned start datetime of the shift (UTC)"
 
       - name: shift_ends_at
         data_type: timestamp
-        description: 'Planned end datetime of the shift (UTC)'
+        description: "Planned end datetime of the shift (UTC)"
 
       - name: planification_type
         data_type: string
-        description: 'Type of planning for the shift (e.g. work, training)'
+        description: "Type of planning for the shift (e.g. work, training)"

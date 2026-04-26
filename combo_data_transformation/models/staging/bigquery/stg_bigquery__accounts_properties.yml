@@ -2,27 +2,28 @@ version: 2
 
 models:
   - name: stg_bigquery__accounts
-    description: 'Staging model for client companies (accounts) subscribing to Combo'
+    description:
+      "Staging model for client companies (accounts) subscribing to Combo"
     columns:
       - name: account_id
         data_type: int64
-        description: 'Unique identifier of the client company (account)'
+        description: "Unique identifier of the client company (account)"
         tests:
           - unique
           - not_null
 
       - name: account_name
         data_type: string
-        description: 'Name of the client company'
+        description: "Name of the client company"
 
       - name: account_created_at
         data_type: timestamp
-        description: 'Timestamp when the account was created'
+        description: "Timestamp when the account was created"
 
       - name: time_zone
         data_type: string
-        description: 'Timezone of the record'
+        description: "Timezone of the record"
 
       - name: account_country
         data_type: string
-        description: 'Country where the account is registered'
+        description: "Country where the account is registered"

@@ -2,18 +2,21 @@ version: 2
 
 models:
   - name: stg_bigquery__rests
-    description: 'Staging model for rest periods assigned to employees (absences, leave, compensatory rest, etc.)'
+    description:
+      "Staging model for rest periods assigned to employees (absences, leave,
+      compensatory rest, etc.)"
     columns:
       - name: rest_id
         data_type: int64
-        description: 'Unique identifier of the rest period'
+        description: "Unique identifier of the rest period"
         tests:
           - unique
           - not_null
 
       - name: user_contract_id
         data_type: int64
-        description: 'Unique identifier of the contract linking a membership (employee)'
+        description:
+          "Unique identifier of the contract linking a membership (employee)"
         tests:
           - relationships:
               to: ref('stg_bigquery__user_contracts')
@@ -21,7 +24,7 @@ models:
 
       - name: account_id
         data_type: int64
-        description: 'Unique identifier of the client company (account)'
+        description: "Unique identifier of the client company (account)"
         tests:
           - relationships:
               to: ref('stg_bigquery__accounts')
@@ -29,12 +32,13 @@ models:
 
       - name: rest_starts_at
         data_type: timestamp
-        description: 'Start datetime of the rest period (UTC)'
+        description: "Start datetime of the rest period (UTC)"
 
       - name: rest_ends_at
         data_type: timestamp
-        description: 'End datetime of the rest period (UTC)'
+        description: "End datetime of the rest period (UTC)"
 
       - name: rest_type
         data_type: string
-        description: 'Type of rest (weekly_rest, compensatory_rest, formation, etc.)'
+        description:
+          "Type of rest (weekly_rest, compensatory_rest, formation, etc.)"

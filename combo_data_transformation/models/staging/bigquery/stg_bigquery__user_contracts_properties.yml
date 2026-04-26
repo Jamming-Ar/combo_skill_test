@@ -2,18 +2,21 @@ version: 2
 
 models:
   - name: stg_bigquery__user_contracts
-    description: 'Staging model for employment contracts linking employees to their home location'
+    description:
+      "Staging model for employment contracts linking employees to their home
+      location"
     columns:
       - name: user_contract_id
         data_type: int64
-        description: 'Unique identifier of the contract linking a membership (employee)'
+        description:
+          "Unique identifier of the contract linking a membership (employee)"
         tests:
           - unique
           - not_null
 
       - name: membership_id
         data_type: int64
-        description: 'Unique identifier of the membership'
+        description: "Unique identifier of the membership"
         tests:
           - relationships:
               to: ref('stg_bigquery__memberships')
@@ -21,7 +24,7 @@ models:
 
       - name: location_id
         data_type: int64
-        description: 'Unique identifier of the location'
+        description: "Unique identifier of the location"
         tests:
           - relationships:
               to: ref('stg_bigquery__locations')
@@ -29,7 +32,7 @@ models:
 
       - name: account_id
         data_type: int64
-        description: 'Unique identifier of the client company (account)'
+        description: "Unique identifier of the client company (account)"
         tests:
           - relationships:
               to: ref('stg_bigquery__accounts')
@@ -37,18 +40,18 @@ models:
 
       - name: contract_start_date
         data_type: date
-        description: 'Contract start date'
+        description: "Contract start date"
         tests:
           - not_null
 
       - name: contract_end_date
         data_type: date
-        description: 'Contract end date (null for open-ended CDI contracts)'
+        description: "Contract end date (null for open-ended CDI contracts)"
 
       - name: contract_type
         data_type: string
-        description: 'Type of contract (CDI, CDD, seasonal, etc.)'
+        description: "Type of contract (CDI, CDD, seasonal, etc.)"
 
       - name: contract_time
         data_type: string
-        description: 'Weekly planned working hours defined in the contract'
+        description: "Weekly planned working hours defined in the contract"

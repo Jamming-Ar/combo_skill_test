@@ -3,8 +3,8 @@ version: 2
 macros:
   - name: calculate_location_monthly_price
     description: >
-      Calcule le prix mensuel d'une location selon le nouveau modèle tarifaire (depuis 2023).
-      Prend en entrée le nombre d'employés facturables de la semaine et retourne le montant mensuel correspondant.
-      Micro (0-5 employés) : 60€ fixe.
-      Petit (6-39 employés) : 80€ + (n - 6) × 4€.
-      Grand (40+ employés) : 216€ + 33 × 4€ + (n - 39) × 2,4€.
+      Calcule le prix mensuel d'une location selon le nouveau modèle tarifaire
+      (depuis 2023). Prend en entrée le nombre d'employés facturables de la
+      semaine et retourne le montant mensuel correspondant. Micro (0-5 employés)
+      : 60€ fixe. Petit (6-39 employés) : 80€ + (n - 6) × 4€. Grand (40+
+      employés) : 216€ + 33 × 4€ + (n - 39) × 2,4€.

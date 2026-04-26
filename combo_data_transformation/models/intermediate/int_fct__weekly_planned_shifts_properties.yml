@@ -3,55 +3,56 @@ version: 2
 models:
   - name: int_fct__weekly_planned_shifts
     description: >
-      Table de faits des shifts hebdomadaires par contrat.
-      Grain : 1 ligne par (semaine, contrat) ayant eu au moins 1 shift.
-      La semaine commence le lundi à 00:00 UTC.
-      INNER JOIN sur int_dim__contracts exclut les shifts dont le contrat est absent de la source.
-      La location de facturation est celle du contrat, pas la location physique du shift.
-    
+      Table de faits des shifts hebdomadaires par contrat. Grain : 1 ligne par
+      (semaine, contrat) ayant eu au moins 1 shift. La semaine commence le lundi
+      à 00:00 UTC. INNER JOIN sur int_dim__contracts exclut les shifts dont le
+      contrat est absent de la source. La location de facturation est celle du
+      contrat, pas la location physique du shift.
+
     tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
             - week_start
             - user_contract_id
-    
+
     columns:
       - name: week_start
         data_type: date
-        description: 'Date du lundi de la semaine (UTC)'
+        description: "Date du lundi de la semaine (UTC)"
         tests:
           - not_null
 
       - name: user_contract_id
         data_type: int64
-        description: 'Unique identifier of the contract linking a membership (employee)'
+        description:
+          "Unique identifier of the contract linking a membership (employee)"
         tests:
           - not_null
 
       - name: membership_id
         data_type: int64
-        description: 'Unique identifier of the membership'
+        description: "Unique identifier of the membership"
 
       - name: location_id
         data_type: int64
-        description: 'Unique identifier of the location'
+        description: "Unique identifier of the location"
         tests:
           - not_null
 
       - name: account_id
         data_type: int64
-        description: 'Unique identifier of the client company (account)'
+        description: "Unique identifier of the client company (account)"
         tests:
           - not_null
 
       - name: is_duplicate_active_contract
         data_type: bool
         description: >
-          true si ce contrat est un CDI ouvert en doublon : même membership_id ET même
-          location_id avec au moins un autre CDI sans date de fin.
-          Utilisé pour alerter sans bloquer la facturation (COUNT DISTINCT membership_id absorbe le doublon)
-
+          true si ce contrat est un CDI ouvert en doublon : même membership_id
+          ET même location_id avec au moins un autre CDI sans date de fin.
+          Utilisé pour alerter sans bloquer la facturation (COUNT DISTINCT
+          membership_id absorbe le doublon)
 
       - name: planned_shift_count
         data_type: int64
-        description: 'Number of shift planned'
+        description: "Number of shift planned"
