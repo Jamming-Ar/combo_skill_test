@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: mart__orphan_contracts
+    description: >
+      Modèle de qualité de données. Recense les user_contract_id présents dans
+      les shifts et rests mais absents de user_contracts. Ces contrats orphelins
+      sont exclus du calcul des employés facturables et du revenu hebdomadaire
+      attendu. Grain : 1 ligne par account_id impacté.
+
+    columns:
+      - name: account_id
+        data_type: int64
+        description: "Identifiant du compte client"
+        tests:
+          - not_null
+          - unique
+
+      - name: account_name
+        data_type: string
+        description: "Nom du compte client"
+
+      - name: orphan_contracts_from_shifts
+        data_type: int64
+        description: >
+          Nombre de user_contract_id distincts référencés dans les shifts mais
+          absents de user_contracts
+
+      - name: orphan_shifts_count
+        data_type: int64
+        description: >
+          Nombre total de shifts portant un user_contract_id orphelin — ces
+          shifts ne sont pas comptés dans les métriques de facturation
+
+      - name: orphan_contracts_from_rests
+        data_type: int64
+        description: >
+          Nombre de user_contract_id distincts référencés dans les rests mais
+          absents de user_contracts
+
+      - name: orphan_rests_count
+        data_type: int64
+        description: >
+          Nombre total de rests portant un user_contract_id orphelin — ces rests
+          ne sont pas comptés dans les métriques de facturation
