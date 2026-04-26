@@ -33,8 +33,10 @@ location_weeks as (
         locations_history.account_id
     from all_weeks
     inner join locations_history
-        on (locations_history.dbt_valid_to is null
-            or all_weeks.week_start < locations_history.dbt_valid_to)
+        on (
+            locations_history.dbt_valid_to is null
+            or all_weeks.week_start < locations_history.dbt_valid_to
+        )
         and locations_history.is_archived = false
 ),
 
@@ -46,10 +48,13 @@ employees_per_location as (
         count(distinct weekly_planifications.membership_id) as billable_employee_count
     from weekly_planifications
     inner join locations_history
-        on weekly_planifications.location_id = locations_history.location_id
-        and (locations_history.dbt_valid_to is null
-            or weekly_planifications.week_start < locations_history.dbt_valid_to)
-        and locations_history.is_archived = false
+        on
+            weekly_planifications.location_id = locations_history.location_id
+            and (
+                locations_history.dbt_valid_to is null
+                or weekly_planifications.week_start < locations_history.dbt_valid_to
+            )
+            and locations_history.is_archived = false
     group by
         weekly_planifications.week_start,
         weekly_planifications.location_id,
@@ -63,5 +68,6 @@ select
     coalesce(employees_per_location.billable_employee_count, 0) as billable_employee_count
 from location_weeks
 left join employees_per_location
-    on location_weeks.week_start = employees_per_location.week_start
-    and location_weeks.location_id = employees_per_location.location_id
+    on
+        location_weeks.week_start = employees_per_location.week_start
+        and location_weeks.location_id = employees_per_location.location_id

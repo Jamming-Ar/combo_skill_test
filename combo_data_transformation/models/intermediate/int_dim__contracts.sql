@@ -51,5 +51,6 @@ select
     ) as is_duplicate_active_contract
 from contracts_enriched
 left join open_contract_counts
-    on contracts_enriched.membership_id = open_contract_counts.membership_id
-    and contracts_enriched.location_id = open_contract_counts.location_id
+    on
+        contracts_enriched.membership_id = open_contract_counts.membership_id
+        and contracts_enriched.location_id = open_contract_counts.location_id

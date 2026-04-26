@@ -9,7 +9,9 @@ location_revenue as (
         weekly_location_employees.location_id,
         weekly_location_employees.account_id,
         weekly_location_employees.billable_employee_count,
-        {{ calculate_location_monthly_price('weekly_location_employees.billable_employee_count') }} as monthly_location_price
+        {{ calculate_location_monthly_price
+            ('weekly_location_employees.billable_employee_count') }}                                                                         
+            as monthly_location_price
     from weekly_location_employees
 )
 

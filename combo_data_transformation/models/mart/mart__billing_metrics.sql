@@ -35,8 +35,12 @@ location_weeks as (
         locations_history.account_id
     from all_weeks
     inner join locations_history
-        on (locations_history.dbt_valid_to is null or all_weeks.week_start < locations_history.dbt_valid_to)
-        and locations_history.is_archived = false
+        on
+            (
+                locations_history.dbt_valid_to is null
+                or all_weeks.week_start < locations_history.dbt_valid_to
+            )
+            and locations_history.is_archived = false
 ),
 
 billable_locations_per_account as (
@@ -55,9 +59,13 @@ billable_employees_per_account as (
         count(distinct weekly_planifications.membership_id) as billable_employee_count
     from weekly_planifications
     inner join locations_history
-        on weekly_planifications.location_id = locations_history.location_id
-        and (locations_history.dbt_valid_to is null or weekly_planifications.week_start < locations_history.dbt_valid_to)
-        and locations_history.is_archived = false
+        on
+            weekly_planifications.location_id = locations_history.location_id
+            and (
+                locations_history.dbt_valid_to is null
+                or weekly_planifications.week_start < locations_history.dbt_valid_to
+            )
+            and locations_history.is_archived = false
     group by weekly_planifications.week_start, weekly_planifications.account_id
 ),
 
@@ -68,9 +76,13 @@ planned_shifts_per_account as (
         sum(weekly_shifts.planned_shift_count) as planned_shift_count
     from weekly_shifts
     inner join locations_history
-        on weekly_shifts.location_id = locations_history.location_id
-        and (locations_history.dbt_valid_to is null or weekly_shifts.week_start < locations_history.dbt_valid_to)
-        and locations_history.is_archived = false
+        on
+            weekly_shifts.location_id = locations_history.location_id
+            and (
+                locations_history.dbt_valid_to is null
+                or weekly_shifts.week_start < locations_history.dbt_valid_to
+            )
+            and locations_history.is_archived = false
     group by weekly_shifts.week_start, weekly_shifts.account_id
 ),
 
@@ -81,9 +93,13 @@ planned_rests_per_account as (
         sum(weekly_rests.planned_rest_count) as planned_rest_count
     from weekly_rests
     inner join locations_history
-        on weekly_rests.location_id = locations_history.location_id
-        and (locations_history.dbt_valid_to is null or weekly_rests.week_start < locations_history.dbt_valid_to)
-        and locations_history.is_archived = false
+        on
+            weekly_rests.location_id = locations_history.location_id
+            and (
+                locations_history.dbt_valid_to is null
+                or weekly_rests.week_start < locations_history.dbt_valid_to
+            )
+            and locations_history.is_archived = false
     group by weekly_rests.week_start, weekly_rests.account_id
 )
 
@@ -97,14 +113,17 @@ select
     coalesce(planned_rests_per_account.planned_rest_count, 0) as planned_rest_count
 from billable_locations_per_account
 left join billable_employees_per_account
-    on billable_locations_per_account.week_start = billable_employees_per_account.week_start
-    and billable_locations_per_account.account_id = billable_employees_per_account.account_id
+    on
+        billable_locations_per_account.week_start = billable_employees_per_account.week_start
+        and billable_locations_per_account.account_id = billable_employees_per_account.account_id
 left join planned_shifts_per_account
-    on billable_locations_per_account.week_start = planned_shifts_per_account.week_start
-    and billable_locations_per_account.account_id = planned_shifts_per_account.account_id
+    on
+        billable_locations_per_account.week_start = planned_shifts_per_account.week_start
+        and billable_locations_per_account.account_id = planned_shifts_per_account.account_id
 left join planned_rests_per_account
-    on billable_locations_per_account.week_start = planned_rests_per_account.week_start
-    and billable_locations_per_account.account_id = planned_rests_per_account.account_id
+    on
+        billable_locations_per_account.week_start = planned_rests_per_account.week_start
+        and billable_locations_per_account.account_id = planned_rests_per_account.account_id
 left join accounts
     on billable_locations_per_account.account_id = accounts.account_id
 order by billable_locations_per_account.week_start, billable_locations_per_account.account_id

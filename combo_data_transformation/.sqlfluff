@@ -1,0 +1,58 @@
+[sqlfluff]
+templater = dbt
+dialect = bigquery
+rules = L010,L030,L040,L057,L063,L066,LT02,LT04,LT06,LT10,LT11,LT13,L016,L045
+# Enabled rules:
+# L010 : Ensure consistent keyword capitalisation in SQL
+# L030 : Ensure consistent capitalization of SQL function names
+# L040 : Ensure consistent capitalization of boolean and NULL literals
+# L057 : Disallow special characters in SQL identifiers
+# L063 : Ensure consistent capitalization of SQL data types
+# L066 : Enforce min and max lengths for table aliases in SQL
+# LT02 : Enforce consistent indentation using configured spaces or tabs
+# LT04 : Enforce consistent use of leading or trailing commas in SQL
+# LT06 : Ensure no space between function names and parentheses.
+# LT10 : Ensure SELECT modifiers (e.g., DISTINCT) stay on the same line as SELECT
+# LT11 : Set operators should be surrounded by newlines
+# LT13 : Files must not begin with newlines or whitespace
+# L016 : Enforce a maximum line length
+# L045 : Unused CTEs (WITH) must be removed
+large_file_skip_byte_limit = 0
+verbosity = 0
+max_line_length = 100
+
+[sqlfluff:templater:dbt]
+project_dir = .
+profile = combo_data_transformation
+profiles_dir = /Users/jamming.armance/.dbt
+target = dev
+project_name = combo_data_transformation
+
+[sqlfluff:templater:jinja]
+apply_dbt_builtins = True
+
+[sqlfluff:layout:type:comma]
+line_position = trailing
+
+[sqlfluff:indentation]
+tab_space_size = 4
+indent_unit = space
+
+[sqlfluff:rules:capitalisation.keywords]
+capitalisation_policy = lower
+
+[sqlfluff:rules:capitalisation.functions]
+extended_capitalisation_policy = lower
+
+[sqlfluff:rules:capitalisation.literals]
+capitalisation_policy = lower
+
+[sqlfluff:rules:references.special_chars]
+allow_space_in_identifier = False
+additional_allowed_characters = ['.','(',')','-','_']
+
+[sqlfluff:rules:capitalisation.types]
+extended_capitalisation_policy = lower
+
+[sqlfluff:rules:aliasing.length]
+min_alias_length = 2
