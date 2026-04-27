@@ -32,12 +32,18 @@ models:
     staging:
       +materialized: view
       +schema: staging
+      +contract:
+        enforced: true
     intermediate:
       +materialized: table
       +schema: intermediate
+      +contract:
+        enforced: true
     mart:
       +materialized: table
       +schema: mart
+      +contract:
+        enforced: true
 
 snapshots:
   combo_data_transformation:
