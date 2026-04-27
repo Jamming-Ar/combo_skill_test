@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: int_fct__weekly_billable_location_account
+    description: >
+      Table de faits des locations facturables par compte par semaine. Grain : 1
+      ligne par (semaine, compte). Une location est facturable si elle n est pas
+      archivée (is_archived = false). Utilisé par mart__billing_metrics.
+
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - week_start
+            - account_id
+
+    columns:
+      - name: week_start
+        data_type: date
+        description: "Date du lundi de la semaine (UTC)"
+        tests:
+          - not_null
+
+      - name: account_id
+        data_type: int64
+        description: "Identifiant unique du compte"
+        tests:
+          - not_null
+
+      - name: billable_location_count
+        data_type: int64
+        description:
+          "Nombre de locations non archivées pour ce compte cette semaine."

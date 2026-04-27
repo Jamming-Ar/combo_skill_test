@@ -43,10 +43,10 @@ models:
           "Nombre d employés distincts (membership_id) ayant eu au moins 1
           planification cette semaine sur une location non archivée"
 
-      - name: planned_shift_count
-        data_type: int64
-        description: "Number of shift planned"
+      # - name: planned_shift_count
+      #   data_type: int64
+      #   description: "Number of shift planned"
 
-      - name: planned_rest_count
-        data_type: int64
-        description: "Number of rest planned"
+      # - name: planned_rest_count
+      #   data_type: int64
+      #   description: "Number of rest planned"
