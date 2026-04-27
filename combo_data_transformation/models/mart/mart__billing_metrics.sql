@@ -4,6 +4,9 @@ weekly_shifts as (select * from {{ ref('int_fct__weekly_planned_shifts') }}),
 weekly_rests as (select * from {{ ref('int_fct__weekly_planned_rests') }}),
 locations_history as (select * from {{ ref('int_dim__locations_history') }}),
 accounts as (select * from {{ ref('int_dim__accounts') }}),
+weekly_billable_employees_account as (
+    select * from {{ ref('int_fct__weekly_billable_employee_account') }}
+),
 
 planifications_unioned as (
     select week_start, user_contract_id, membership_id, location_id, account_id
@@ -54,19 +57,10 @@ billable_locations_per_account as (
 
 billable_employees_per_account as (
     select
-        weekly_planifications.week_start,
-        weekly_planifications.account_id,
-        count(distinct weekly_planifications.membership_id) as billable_employee_count
-    from weekly_planifications
-    inner join locations_history
-        on
-            weekly_planifications.location_id = locations_history.location_id
-            and (
-                locations_history.dbt_valid_to is null
-                or weekly_planifications.week_start < locations_history.dbt_valid_to
-            )
-            and locations_history.is_archived = false
-    group by weekly_planifications.week_start, weekly_planifications.account_id
+        week_start,
+        account_id,
+        account_billable_employee_count
+    from weekly_billable_employees_account
 ),
 
 planned_shifts_per_account as (
@@ -108,7 +102,8 @@ select
     billable_locations_per_account.account_id,
     accounts.account_name,
     billable_locations_per_account.billable_location_count,
-    coalesce(billable_employees_per_account.billable_employee_count, 0) as billable_employee_count,
+    coalesce(billable_employees_per_account.account_billable_employee_count, 0)
+        as billable_employee_count,
     coalesce(planned_shifts_per_account.planned_shift_count, 0) as planned_shift_count,
     coalesce(planned_rests_per_account.planned_rest_count, 0) as planned_rest_count
 from billable_locations_per_account

@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: int_fct__weekly_billable_employee_account
+    description: >
+      Table de faits des employés facturables par compte par semaine. Grain : 1
+      ligne par (semaine, compte). Un employé avec des contrats sur plusieurs
+      locations du même compte n est compté qu une seule fois
+
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - week_start
+            - account_id
+
+    columns:
+      - name: week_start
+        data_type: date
+        description: "Date du lundi de la semaine (UTC)"
+        tests:
+          - not_null
+
+      - name: account_id
+        data_type: int64
+        description: "Identifiant unique du compte"
+        tests:
+          - not_null
+
+      - name: account_billable_employee_count
+        data_type: int64
+        description:
+          "Nombre d employés facturables distincts (membership_id) par compte
+          cette semaine."

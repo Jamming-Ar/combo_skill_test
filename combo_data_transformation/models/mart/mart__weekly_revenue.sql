@@ -1,6 +1,8 @@
 with
 
-weekly_location_employees as (select * from {{ ref('int_fct__weekly_billable_employee') }}),
+weekly_location_employees as (
+    select * from {{ ref('int_fct__weekly_billable_employee_location') }}
+),
 accounts as (select * from {{ ref('int_dim__accounts') }}),
 
 location_revenue as (
@@ -8,9 +10,9 @@ location_revenue as (
         weekly_location_employees.week_start,
         weekly_location_employees.location_id,
         weekly_location_employees.account_id,
-        weekly_location_employees.billable_employee_count,
+        weekly_location_employees.location_billable_employee_count,
         {{ calculate_location_monthly_price
-            ('weekly_location_employees.billable_employee_count') }}                                                                         
+            ('weekly_location_employees.location_billable_employee_count') }}                                                                         
             as monthly_location_price
     from weekly_location_employees
 )

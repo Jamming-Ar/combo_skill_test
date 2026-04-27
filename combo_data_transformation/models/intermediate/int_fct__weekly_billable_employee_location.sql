@@ -45,7 +45,7 @@ employees_per_location as (
         weekly_planifications.week_start,
         weekly_planifications.location_id,
         weekly_planifications.account_id,
-        count(distinct weekly_planifications.membership_id) as billable_employee_count
+        count(distinct weekly_planifications.membership_id) as location_billable_employee_count
     from weekly_planifications
     inner join locations_history
         on
@@ -65,7 +65,8 @@ select
     location_weeks.week_start,
     location_weeks.location_id,
     location_weeks.account_id,
-    coalesce(employees_per_location.billable_employee_count, 0) as billable_employee_count
+    coalesce(employees_per_location.location_billable_employee_count, 0)
+        as location_billable_employee_count
 from location_weeks
 left join employees_per_location
     on
