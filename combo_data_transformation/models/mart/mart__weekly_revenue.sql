@@ -11,9 +11,9 @@ location_revenue as (
         weekly_location_employees.location_id,
         weekly_location_employees.account_id,
         weekly_location_employees.location_billable_employee_count,
-        {{ calculate_location_monthly_price
+        {{ calculate_expected_location_revenue
             ('weekly_location_employees.location_billable_employee_count') }}                                                                         
-            as monthly_location_price
+            as expected_weekly_revenue
     from weekly_location_employees
 )
 
@@ -21,7 +21,7 @@ select
     location_revenue.week_start,
     location_revenue.account_id,
     accounts.account_name,
-    sum(location_revenue.monthly_location_price) as expected_monthly_revenue
+    sum(location_revenue.expected_weekly_revenue) as expected_weekly_revenue
 from location_revenue
 left join accounts
     on location_revenue.account_id = accounts.account_id

@@ -5,10 +5,7 @@ models:
     description: >
       Revenu mensuel attendu par compte par semaine selon le nouveau modèle
       tarifaire (depuis 2023). Grain : 1 ligne par (semaine, compte). Le montant
-      est un équivalent mensuel calculé à partir de l usage de la semaine. Le
-      prix de chaque établissement est calculé via la macro
-      calculate_location_monthly_price appliquée au nombre d employés
-      facturables de la semaine.
+      est un équivalent mensuel calculé à partir de l usage de la semaine.
     tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
@@ -31,7 +28,7 @@ models:
         data_type: string
         description: "Nom du compte client"
 
-      - name: expected_monthly_revenue
+      - name: expected_weekly_revenue
         data_type: float64
         description:
           "Somme des prix mensuels de tous les établissements actifs du compte

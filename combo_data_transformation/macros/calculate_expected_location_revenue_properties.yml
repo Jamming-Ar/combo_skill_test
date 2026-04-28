@@ -1,7 +1,7 @@
 version: 2
 
 macros:
-  - name: calculate_location_monthly_price
+  - name: calculate_expected_location_revenue
     description: >
       Calcule le prix mensuel d'une location selon le nouveau modèle tarifaire
       (depuis 2023). Prend en entrée le nombre d'employés facturables de la

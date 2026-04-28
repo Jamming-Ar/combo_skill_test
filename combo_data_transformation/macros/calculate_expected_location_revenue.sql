@@ -1,4 +1,4 @@
-{% macro calculate_location_monthly_price(employee_count) %}
+{% macro calculate_expected_location_revenue(employee_count) %}
 case
     when {{ employee_count }} <= 5
         then 60.0
