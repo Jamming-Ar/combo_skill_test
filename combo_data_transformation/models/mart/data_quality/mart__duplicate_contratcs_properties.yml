@@ -1,0 +1,57 @@
+version: 2
+
+models:
+  - name: mart__duplicate_contratcs
+    description: >
+      Modèle de qualité de données. Recense les employés ayant au moins deux
+      contrats ouverts (contract_end_date IS NULL) sur la même location. Ces
+      doublons peuvent provoquer une surestimation du nombre d'employés
+      facturables si le comptage n'utilise pas COUNT DISTINCT sur membership_id.
+      Grain : 1 ligne par (membership_id, location_id).
+
+    columns:
+      - name: membership_id
+        data_type: int64
+        description: "Identifiant de l'employé"
+        tests:
+          - not_null
+
+      - name: firstname
+        data_type: string
+        description: "Prénom de l'employé"
+
+      - name: lastname
+        data_type: string
+        description: "Nom de famille de l'employé"
+
+      - name: account_id
+        data_type: int64
+        description:
+          "Identifiant du compte client auquel appartient la location"
+        tests:
+          - not_null
+
+      - name: location_id
+        data_type: int64
+        description:
+          "Identifiant de l'établissement sur lequel les contrats sont en
+          doublon"
+        tests:
+          - not_null
+
+      - name: open_contract_count
+        data_type: int64
+        description: >
+          Nombre de contrats ouverts pour cet employé sur cette location.
+          Toujours >= 2 dans ce modèle.
+        tests:
+          - not_null
+
+      - name: detailed_open_contract
+        data_type:
+          array<struct<user_contract_id int64, contract_start_date date,
+          contract_end_date date, contract_type string, contract_time string>>
+        description: >
+          Tableau de structs listant le détail de chaque contrat ouvert, trié
+          par contract_start_date. Chaque struct contient : user_contract_id,
+          contract_start_date, contract_end_date, contract_type, contract_time.
